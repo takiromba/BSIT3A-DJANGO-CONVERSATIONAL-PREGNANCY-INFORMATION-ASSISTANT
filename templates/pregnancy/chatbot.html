@@ -1,0 +1,66 @@
+{% extends "pregnancy/base.html" %}
+{% block title %}{% if conversation %}Chat history{% else %}Chat with PregnaBot{% endif %}{% endblock %}
+{% block content %}
+<div class="chat-page">
+  <div class="chat-heading">
+    <div><span class="eyebrow">A thoughtful place to ask</span><h1>{% if conversation %}Your conversation{% else %}Chat with PregnaBot{% endif %}</h1><p>Explore answers from the pregnancy information library.</p></div>
+    <a class="button button-soft" href="{% url 'chatbot' %}"><i class="fa-solid fa-plus" aria-hidden="true"></i> New chat</a>
+  </div>
+  <div class="chat-workspace">
+    <section class="chat-panel" aria-label="Chat conversation">
+      <div class="chat-panel-header">
+        <span class="bot-avatar"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i></span>
+        <div><strong>PregnaBot</strong><span><i class="online-dot"></i> Pregnancy information guide</span></div>
+      </div>
+      <div class="chat-stream" aria-live="polite">
+        {% if not chat_messages %}
+        <div class="chat-welcome">
+          <span class="welcome-chat-icon"><i class="fa-regular fa-comments" aria-hidden="true"></i></span>
+          <h2>What would you like to know?</h2>
+          <p>Ask about a pregnancy topic and I’ll look for a relevant answer in the information library.</p>
+          <div class="suggestion-chips">
+            <a href="{% url 'pregnancy_information' %}?category=nutrition">Nutrition &amp; hydration</a>
+            <a href="{% url 'pregnancy_information' %}?category=prenatal">Prenatal visits</a>
+            <a href="{% url 'faq_list' %}">Common questions</a>
+          </div>
+        </div>
+        {% endif %}
+        {% for message in chat_messages %}
+        <div class="chat-message {% if message.role == 'user' %}from-user{% else %}from-bot{% endif %}">
+          {% if message.role != 'user' %}<span class="message-avatar"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i></span>{% endif %}
+          <div class="message-bubble">
+            <span class="message-author">{% if message.role == 'user' %}You{% else %}PregnaBot{% endif %}</span>
+            <p>{{ message.content|linebreaksbr }}</p>
+            <time datetime="{{ message.created_at|date:'c' }}">{{ message.created_at|date:"M j, g:i A" }}</time>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <form class="chat-composer" method="post">
+        {% csrf_token %}
+        <label class="visually-hidden" for="chat-question">Your question</label>
+        <textarea id="chat-question" name="question" rows="2" maxlength="4000" placeholder="Type your question here..." required></textarea>
+        <div class="composer-bottom"><span>PregnaBot looks up answers in the current topic and FAQ library.</span><button class="button button-pink" type="submit"><span>Send</span><i class="fa-solid fa-paper-plane" aria-hidden="true"></i></button></div>
+      </form>
+    </section>
+    <aside class="chat-side">
+      <div class="chat-history-card">
+        <div class="panel-heading"><h2>Your recent chats</h2><span>{{ recent_conversations|length }}</span></div>
+        <div class="chat-history-list">
+          {% for recent in recent_conversations %}
+          <a class="chat-history-link {% if conversation and conversation.pk == recent.pk %}is-current{% endif %}" href="{% url 'chat_conversation' recent.pk %}">
+            <i class="fa-regular fa-message" aria-hidden="true"></i>
+            <span><strong>{{ recent.title|truncatechars:38 }}</strong><small>{{ recent.updated_at|date:"M j, g:i A" }}</small></span>
+          </a>
+          {% empty %}
+          <p class="chat-history-empty">Your saved conversations will appear here.</p>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="chat-safety-card"><i class="fa-solid fa-shield-heart" aria-hidden="true"></i><h2>A gentle reminder</h2><p>PregnaBot provides general educational information, not diagnosis or treatment.</p></div>
+      <div class="chat-safety-card urgent-card"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i><h2>Need urgent help?</h2><p>If you have severe symptoms or warning signs, contact your healthcare team or local emergency services now. Don't wait for an online reply.</p><a class="text-link" href="{% url 'pregnancy_information' %}?category=warning-signs">Read warning signs <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+      <a class="chat-library-link" href="{% url 'pregnancy_information' %}"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span><strong>Browse the library</strong><small>Explore all pregnancy topics</small></span><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></a>
+    </aside>
+  </div>
+</div>
+{% endblock %}

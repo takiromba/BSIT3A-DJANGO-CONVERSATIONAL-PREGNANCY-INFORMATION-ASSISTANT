@@ -61,12 +61,15 @@
 
         {% if user.is_authenticated %}
         <li class="nav-item d-lg-none">
-          <a class="nav-link" href="{% url 'logout' %}">
-            <span class="nav-link-icon d-md-none d-lg-inline-block">
-              <i class="nav-icon fas fa-sign-out-alt"></i>
-            </span>
-            <span class="nav-link-title">Logout</span>
-          </a>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="nav-link w-100 text-start border-0 bg-transparent" type="submit">
+              <span class="nav-link-icon d-md-none d-lg-inline-block">
+                <i class="nav-icon fas fa-sign-out-alt"></i>
+              </span>
+              <span class="nav-link-title">Logout</span>
+            </button>
+          </form>
         </li>
         {% endif %}
 
@@ -82,9 +85,12 @@
               </span>
             </a>
             {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}" class="dh-user-logout" title="Logout">
-              <i class="fas fa-sign-out-alt"></i>
-            </a>
+            <form method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button type="submit" class="dh-user-logout" title="Logout" aria-label="Logout">
+                <i class="fas fa-sign-out-alt"></i>
+              </button>
+            </form>
             {% endif %}
           </div>
         </li>
