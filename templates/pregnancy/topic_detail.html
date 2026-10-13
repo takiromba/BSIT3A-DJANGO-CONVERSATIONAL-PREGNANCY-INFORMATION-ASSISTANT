@@ -1,0 +1,22 @@
+{% extends "pregnancy/base.html" %}
+{% block title %}{{ topic.title }}{% endblock %}
+{% block content %}
+<div class="breadcrumbs"><a href="{% url 'dashboard' %}">Dashboard</a><i class="fa-solid fa-chevron-right" aria-hidden="true"></i><a href="{% url 'pregnancy_information' %}">Pregnancy Information</a><i class="fa-solid fa-chevron-right" aria-hidden="true"></i><span>{{ topic.title }}</span></div>
+<article class="article-card">
+  <span class="topic-icon topic-rose"><i class="fa-solid {{ topic.icon }}" aria-hidden="true"></i></span>
+  <span class="eyebrow">{{ topic.get_category_display }}</span>
+  <h1>{{ topic.title }}</h1>
+  <p class="article-summary">{{ topic.description }}</p>
+  <div class="article-body">{{ topic.content|linebreaks }}</div>
+  <div class="medical-note"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i><span>This information is educational and cannot replace individual medical advice. Please check with your healthcare professional about your own care.</span></div>
+</article>
+{% if faqs %}
+<section class="article-faqs">
+  <div class="section-heading"><div><h2>Related questions</h2><p>Quick answers to common questions about this topic</p></div></div>
+  {% for faq in faqs %}
+  <details class="faq-item"><summary>{{ faq.question }}<i class="fa-solid fa-plus" aria-hidden="true"></i></summary><div>{{ faq.answer|linebreaks }}</div></details>
+  {% endfor %}
+</section>
+{% endif %}
+<a class="back-link" href="{% url 'pregnancy_information' %}"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to all information</a>
+{% endblock %}

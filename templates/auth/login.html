@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>
-    Sign in - Azuelo Technology
+    Sign in - PregnaBot
   </title>
   <link href="{% static 'libs/jsvectormap/dist/jsvectormap.css' %}" rel="stylesheet" />
   <link href="{% static 'css/tabler.css' %}" rel="stylesheet" />
@@ -27,9 +27,11 @@
      <div class="card card-md">
       <div class="card-body">
 
-        <center class="mt-n4">
-        <i class='far fa-calendar' style='font-size:40px'></i>
-        </center>
+        <div class="text-center mb-3">
+          <i class="fa-solid fa-heart-pulse text-primary" style="font-size:34px" aria-hidden="true"></i>
+          <div class="fw-bold fs-2 mt-1">PregnaBot</div>
+          <div class="text-secondary small">Your Pregnancy Guide</div>
+        </div>
         <h2 class="h3 text-center mb-4">Sign in to start your session</h2>
 
         <form method="post">
@@ -63,10 +65,10 @@
      </div>
    </div>
  </div>
- <!-- <div class="text-center text-secondary mt-n1">
+ <div class="text-center text-secondary mt-3">
   Don't have an account?
-  <a href="{% url 'register' %}" class="text-primary fw-bold">Register</a>
- </div> -->
+  <a href="{% url 'register' %}" class="text-primary fw-bold">Create an account</a>
+ </div>
 </div>
 
 {% include 'theme/settings.html' %}

@@ -23,3 +23,20 @@ venv/
 # MySQL dumps containing data
 bsitcrud.sql
 SQL/bsitcrud.sql
+
+
+# Python generated files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.venv/
+
+# Environment secrets
+.env
+
+# Django generated files
+staticfiles/
+media/

@@ -1,0 +1,38 @@
+{% extends "pregnancy/base.html" %}
+{% block title %}Pregnancy Information{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <div><span class="eyebrow">Learn at your own pace</span><h1>Pregnancy information</h1><p>Helpful, easy-to-understand topics for every step of your journey.</p></div>
+  <a class="button button-pink" href="{% url 'chatbot' %}"><i class="fa-regular fa-message" aria-hidden="true"></i> Ask PregnaBot</a>
+</div>
+<form class="library-search" method="get" role="search">
+  <label for="topic-search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><span class="visually-hidden">Search pregnancy information</span></label>
+  <input id="topic-search" type="search" name="q" value="{{ query }}" placeholder="Search symptoms, prenatal care, nutrition...">
+  {% if selected_category %}<input type="hidden" name="category" value="{{ selected_category }}">{% endif %}
+  <button class="button button-dark" type="submit">Search topics</button>
+  {% if query or selected_category %}<a class="clear-search" href="{% url 'pregnancy_information' %}">Clear</a>{% endif %}
+</form>
+<div class="library-summary"><strong>{{ topic_count }}</strong> topic{{ topic_count|pluralize }}{% if query %} matching “{{ query }}”{% endif %}{% if selected_category %} in this category{% endif %}</div>
+
+{% for group in topic_groups %}
+<section class="library-group">
+  <div class="section-heading"><div><span class="group-kicker"><i class="fa-solid {{ group.icon }}" aria-hidden="true"></i> {{ group.title }}</span></div></div>
+  <div class="library-grid">
+    {% for topic in group.topics %}
+    <a class="library-card" href="{% url 'topic_detail' topic.slug %}">
+      <span class="topic-icon topic-{{ group.color }}"><i class="fa-solid {{ topic.icon }}" aria-hidden="true"></i></span>
+      <span class="library-card-content"><strong>{{ topic.title }}</strong><span>{{ topic.description }}</span><small>Read more <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></small></span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% empty %}
+<div class="empty-state page-empty">
+  <span class="empty-icon"><i class="fa-solid fa-book-open" aria-hidden="true"></i></span>
+  <strong>No topics found</strong>
+  <p>{% if query %}Try a different search term or clear your filters.{% else %}Information for this category will be added soon.{% endif %}</p>
+  <a class="button button-soft" href="{% url 'pregnancy_information' %}">Browse all topics</a>
+</div>
+{% endfor %}
+<div class="medical-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i><span>This library is for general education, not diagnosis or treatment. Always discuss personal concerns with a qualified healthcare professional.</span></div>
+{% endblock %}

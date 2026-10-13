@@ -1,0 +1,146 @@
+{% extends "pregnancy/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="dashboard-layout">
+  <div class="dashboard-main">
+    <section class="welcome-card">
+      <div class="welcome-copy">
+        <span class="eyebrow">A gentle guide for your journey</span>
+        <h1>Good morning,<br><strong>{{ display_name }}!</strong> <span class="wave" aria-label="waving hand">👋</span></h1>
+        <p>Welcome to PregnaBot — your trusted companion for reliable, easy-to-understand pregnancy information.</p>
+        <a class="button button-pink" href="{% url 'chatbot' %}"><i class="fa-regular fa-message" aria-hidden="true"></i> Ask PregnaBot <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+      </div>
+      <div class="welcome-art" aria-hidden="true">
+        <span class="art-orbit orbit-one"></span><span class="art-orbit orbit-two"></span>
+        <span class="art-heart heart-one"><i class="fa-solid fa-heart"></i></span>
+        <span class="art-heart heart-two"><i class="fa-solid fa-star"></i></span>
+        <svg viewBox="0 0 270 250" role="img">
+          <path class="art-hair" d="M115 30c-38 0-66 27-66 70v50c0 39 27 72 68 72h75c16-23 18-64 12-99-8-51-38-93-89-93Z"/>
+          <path class="art-body" d="M106 78c-16 8-23 27-22 49 1 14-4 26-11 36-14 20-15 38-12 60h157c-2-38-18-67-45-78-13-5-19-13-20-25l-1-20-46-22Z"/>
+          <path class="art-face" d="M105 54c-10 20-13 47-7 68 5 18 19 29 36 29 20 0 38-19 38-43V76c0-22-14-37-35-37-14 0-25 5-32 15Z"/>
+          <path class="art-hair-front" d="M99 91c-9-31 5-61 35-66 22-4 47 10 50 32-14-8-23-21-31-26 2 18-5 29-18 39-9 8-23 15-36 21Z"/>
+          <path class="art-bump" d="M133 144c-25 1-43 20-43 44 0 19 15 34 35 34 22 0 40-15 40-35 0-24-13-43-32-43Z"/>
+          <path class="art-dress" d="M79 158c13-12 24-18 38-20 8 17 21 22 34 22 10 0 18-4 26-11 18 15 31 39 34 74H64c-1-26 3-48 15-65Z"/>
+          <path class="art-sleeve" d="M94 139c-18 7-34 21-42 42-5 13-7 31-4 42h25c-2-24 4-45 22-62 5-5 11-9 18-12l-19-10Z"/>
+          <path class="art-hand" d="M115 182c-4 18 5 37 20 43 9 4 22 1 27-8 4-8-1-17-8-23-11-10-25-15-39-12Z"/>
+          <path class="art-eye" d="M138 105c3 0 5 2 5 5s-2 5-5 5-5-2-5-5 2-5 5-5Z"/>
+          <path class="art-smile" d="M148 124c6 4 12 3 16-2"/>
+        </svg>
+      </div>
+      <span class="welcome-sparkle sparkle-one">✦</span><span class="welcome-sparkle sparkle-two">✿</span>
+    </section>
+
+    <section class="stats-row" aria-label="Your PregnaBot activity">
+      <article class="stat-card stat-blue">
+        <span class="stat-icon"><i class="fa-regular fa-comments" aria-hidden="true"></i></span>
+        <div><span class="stat-label">Questions asked</span><strong>{{ question_count }}</strong><small>Your question history</small></div>
+      </article>
+      <article class="stat-card stat-mint">
+        <span class="stat-icon"><i class="fa-regular fa-clock" aria-hidden="true"></i></span>
+        <div><span class="stat-label">Last chat activity</span><strong>{% if last_activity %}{{ last_activity.updated_at|date:"M j" }}{% else %}Not yet{% endif %}</strong><small>{% if last_activity %}{{ last_activity.updated_at|date:"g:i A" }}{% else %}Start a conversation{% endif %}</small></div>
+      </article>
+      <article class="stat-card stat-lilac">
+        <span class="stat-icon"><i class="fa-solid fa-book-open" aria-hidden="true"></i></span>
+        <div><span class="stat-label">Topics to explore</span><strong>{{ topic_count }}</strong><small>In your information library</small></div>
+      </article>
+    </section>
+
+    <section class="content-section quick-section">
+      <div class="section-heading">
+        <div><h2>Quick actions</h2><p>Everything you need, one tap away</p></div>
+        <a class="text-link" href="{% url 'pregnancy_information' %}">Explore all <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+      </div>
+      <div class="action-grid">
+        <a class="action-card action-rose" href="{% url 'chatbot' %}">
+          <span class="action-icon"><i class="fa-regular fa-message" aria-hidden="true"></i></span>
+          <strong>Chat with PregnaBot</strong><span>Ask a question and explore helpful answers.</span>
+          <i class="fa-solid fa-arrow-up-right-from-square action-arrow" aria-hidden="true"></i>
+        </a>
+        <a class="action-card action-lilac" href="{% url 'pregnancy_information' %}">
+          <span class="action-icon"><i class="fa-solid fa-book-open" aria-hidden="true"></i></span>
+          <strong>Pregnancy Information</strong><span>Browse helpful topics for each stage.</span>
+          <i class="fa-solid fa-arrow-up-right-from-square action-arrow" aria-hidden="true"></i>
+        </a>
+        <a class="action-card action-mint" href="{% url 'faq_list' %}">
+          <span class="action-icon"><i class="fa-regular fa-circle-question" aria-hidden="true"></i></span>
+          <strong>Frequently Asked</strong><span>Find quick answers to common questions.</span>
+          <i class="fa-solid fa-arrow-up-right-from-square action-arrow" aria-hidden="true"></i>
+        </a>
+        <a class="action-card action-blue" href="{% url 'profile' %}">
+          <span class="action-icon"><i class="fa-regular fa-user" aria-hidden="true"></i></span>
+          <strong>My Profile</strong><span>Keep your account details up to date.</span>
+          <i class="fa-solid fa-arrow-up-right-from-square action-arrow" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+
+    <section class="content-section topics-section">
+      <div class="section-heading">
+        <div><h2>Pregnancy topics</h2><p>Browse information by category</p></div>
+        <a class="text-link" href="{% url 'pregnancy_information' %}">View all <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+      </div>
+      <div class="topic-grid">
+        {% for category in categories %}
+        <a class="topic-card" href="{% url 'pregnancy_information' %}?category={{ category.value }}">
+          <span class="topic-icon topic-{{ category.color }}"><i class="fa-solid {{ category.icon }}" aria-hidden="true"></i></span>
+          <span class="topic-card-copy"><strong>{{ category.title }}</strong><span>{% if category.topic %}{{ category.topic.description }}{% else %}Explore trusted information and helpful guidance.{% endif %}</span></span>
+          <i class="fa-solid fa-chevron-right topic-arrow" aria-hidden="true"></i>
+        </a>
+        {% endfor %}
+      </div>
+    </section>
+
+    <div class="journey-banner">
+      <span class="journey-icon"><i class="fa-solid fa-seedling" aria-hidden="true"></i></span>
+      <div><strong>You're doing great!</strong><span>Every step brings you closer to meeting your little one.</span></div>
+      <i class="fa-regular fa-heart journey-heart" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <aside class="dashboard-aside">
+    <section class="quote-card">
+      <span class="quote-heart"><i class="fa-regular fa-heart" aria-hidden="true"></i></span>
+      <p>“Every pregnancy is unique. Get the right information, for a healthier tomorrow.”</p>
+      <span class="quote-underline"></span>
+      <span class="quote-decoration">✦</span>
+    </section>
+
+    <section class="panel-card history-card">
+      <div class="panel-heading"><h2>Recent chat history</h2><a class="text-link" href="{% url 'chatbot' %}">View all <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+      <div class="history-list">
+        {% for conversation in recent_conversations %}
+        <a class="history-item" href="{% url 'chat_conversation' conversation.id %}">
+          <span class="history-icon"><i class="fa-regular fa-comment-dots" aria-hidden="true"></i></span>
+          <span class="history-copy"><strong>{% if conversation.recent_user_messages %}{{ conversation.recent_user_messages.0.content|truncatechars:52 }}{% else %}{{ conversation.title|truncatechars:52 }}{% endif %}</strong><small>{{ conversation.updated_at|date:"M j, g:i A" }}</small></span>
+          <i class="fa-solid fa-chevron-right history-arrow" aria-hidden="true"></i>
+        </a>
+        {% empty %}
+        <div class="empty-state compact-empty">
+          <span class="empty-icon"><i class="fa-regular fa-comments" aria-hidden="true"></i></span>
+          <strong>Your story starts here</strong>
+          <p>Your recent questions will appear here.</p>
+          <a class="text-link" href="{% url 'chatbot' %}">Start a chat <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="panel-card tips-card" id="quick-tips">
+      <div class="panel-heading"><h2><i class="fa-regular fa-lightbulb" aria-hidden="true"></i> Quick tips</h2><a class="text-link" href="{% url 'pregnancy_information' %}">Explore <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+      <ul class="tip-list">
+        <li>Eat a balanced diet and stay hydrated.</li>
+        <li>Follow advice from your healthcare professional.</li>
+        <li>Attend recommended prenatal checkups.</li>
+        <li>Make time for rest and gentle movement if advised.</li>
+      </ul>
+    </section>
+
+    <section class="reminder-card">
+      <div class="reminder-title"><i class="fa-regular fa-heart" aria-hidden="true"></i><strong>Important reminder</strong></div>
+      <p>PregnaBot shares general educational information and is not a substitute for professional medical advice.</p>
+      <p class="urgent-note">For urgent symptoms or warning signs, seek appropriate medical care right away.</p>
+      <a href="{% url 'pregnancy_information' %}?category=warning-signs" aria-label="Read about pregnancy warning signs"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+    </section>
+  </aside>
+</div>
+{% endblock %}
