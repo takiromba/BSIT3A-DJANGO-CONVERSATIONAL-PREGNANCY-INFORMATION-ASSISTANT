@@ -1,0 +1,197 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fil\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "YOUR SPACE"
+msgstr "IYONG ESPASYO"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Chat with PregnaBot"
+msgstr "Makipag-chat kay PregnaBot"
+
+msgid "Pregnancy Information"
+msgstr "Impormasyon tungkol sa pagbubuntis"
+
+msgid "FAQs"
+msgstr "Mga karaniwang tanong"
+
+msgid "My Profile"
+msgstr "Aking profile"
+
+msgid "Pregnancy toolkit"
+msgstr "Mga kagamitan sa pagbubuntis"
+
+msgid "Saved topics"
+msgstr "Mga naka-save na paksa"
+
+msgid "My records"
+msgstr "Aking mga tala"
+
+msgid "User management"
+msgstr "Pamamahala ng mga user"
+
+msgid "Answer feedback"
+msgstr "Feedback sa mga sagot"
+
+msgid "Search pregnancy topics..."
+msgstr "Maghanap ng mga paksa tungkol sa pagbubuntis..."
+
+msgid "Search pregnancy information"
+msgstr "Maghanap ng impormasyon tungkol sa pagbubuntis"
+
+msgid "Search"
+msgstr "Maghanap"
+
+msgid "Language"
+msgstr "Wika"
+
+msgid "Choose language"
+msgstr "Pumili ng wika"
+
+msgid "Log out"
+msgstr "Mag-log out"
+
+msgid "A thoughtful place to ask"
+msgstr "Isang maingat na lugar para magtanong"
+
+msgid "Explore answers from the pregnancy information library."
+msgstr "Tuklasin ang mga sagot mula sa aklatan ng impormasyon tungkol sa pagbubuntis."
+
+msgid "New chat"
+msgstr "Bagong usapan"
+
+msgid "What would you like to know?"
+msgstr "Ano ang nais mong malaman?"
+
+msgid "Ask about a pregnancy topic and I’ll look for a relevant answer in the information library."
+msgstr "Magtanong tungkol sa pagbubuntis at hahanap ako ng kaugnay na sagot sa aklatan ng impormasyon."
+
+msgid "You"
+msgstr "Ikaw"
+
+msgid "Helpful?"
+msgstr "Nakatulong ba ito?"
+
+msgid "Page"
+msgstr "Pahina"
+
+msgid "of"
+msgstr "sa"
+
+msgid "Type your question here..."
+msgstr "I-type ang iyong tanong dito..."
+
+msgid "PregnaBot looks up answers in the current topic and FAQ library."
+msgstr "Naghahanap ang PregnaBot ng mga sagot sa kasalukuyang paksa at mga karaniwang tanong."
+
+msgid "Send"
+msgstr "Ipadala"
+
+msgid "Your recent chats"
+msgstr "Mga kamakailang usapan mo"
+
+msgid "A gentle reminder"
+msgstr "Isang paalala"
+
+msgid "PregnaBot provides general educational information, not diagnosis or treatment."
+msgstr "Nagbibigay ang PregnaBot ng pangkalahatang impormasyong pang-edukasyon, hindi diagnosis o paggamot."
+
+msgid "Need urgent help?"
+msgstr "Kailangan mo ba ng agarang tulong?"
+
+msgid "If you have severe symptoms or warning signs, contact your healthcare team or local emergency services now. Don't wait for an online reply."
+msgstr "Kung mayroon kang malubhang sintomas o babalang palatandaan, makipag-ugnayan ngayon sa iyong pangkat ng pangangalagang pangkalusugan o lokal na serbisyong pang-emergency. Huwag maghintay ng sagot online."
+
+msgid "Read warning signs"
+msgstr "Basahin ang mga babalang palatandaan"
+
+msgid "Private pregnancy toolkit"
+msgstr "Pribadong kagamitan para sa pagbubuntis"
+
+msgid "Pregnancy profile"
+msgstr "Profile ng pagbubuntis"
+
+msgid "Optional dates and appointments saved only to your account."
+msgstr "Opsyonal na mga petsa at appointment na sa iyong account lamang ise-save."
+
+msgid "Pregnancy details"
+msgstr "Mga detalye ng pagbubuntis"
+
+msgid "Conception date is an estimate. Pregnancy dating can differ; confirm dates with your healthcare professional."
+msgstr "Tinatayang petsa lamang ang petsa ng paglilihi. Maaaring magkaiba ang pagkukuwenta ng pagbubuntis; kumpirmahin ito sa iyong propesyonal sa pangangalagang pangkalusugan."
+
+msgid "Save pregnancy details"
+msgstr "I-save ang mga detalye ng pagbubuntis"
+
+msgid "Your estimate"
+msgstr "Iyong tantiya"
+
+msgid "Estimated due date:"
+msgstr "Tinatayang petsa ng panganganak:"
+
+msgid "About week"
+msgstr "Humigit-kumulang linggo"
+
+msgid "trimester"
+msgstr "trimester"
+
+msgid "This calculator is an estimate, not a substitute for clinical dating."
+msgstr "Tantiya lamang ang kalkulasyong ito at hindi kapalit ng klinikal na pagkukuwenta."
+
+msgid "Appointments"
+msgstr "Mga appointment"
+
+msgid "Save upcoming visits as a reminder in this app. No external notifications are sent."
+msgstr "I-save ang mga susunod na pagbisita bilang paalala sa app na ito. Walang ipinapadalang abiso sa labas ng app."
+
+msgid "Save appointment"
+msgstr "I-save ang appointment"
+
+msgid "Remove"
+msgstr "Alisin"
+
+msgid "No upcoming appointments saved."
+msgstr "Walang naka-save na susunod na appointment."
+
+msgid "First name"
+msgstr "Pangalan"
+
+msgid "Last name"
+msgstr "Apelyido"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Estimated conception date"
+msgstr "Tinatayang petsa ng paglilihi"
+
+msgid "Blood type (optional)"
+msgstr "Uri ng dugo (opsyonal)"
+
+msgid "Appointment title"
+msgstr "Pamagat ng appointment"
+
+msgid "Date and time"
+msgstr "Petsa at oras"
+
+msgid "Notes"
+msgstr "Mga tala"
+
+msgid "Show this reminder in the app"
+msgstr "Ipakita ang paalalang ito sa app"
+
+msgid "Urgent symptoms"
+msgstr "Mga agarang sintomas"
+
+msgid "These symptoms may need urgent assessment. Please contact your maternity-care team or local emergency services now. Do not wait for an online response. If symptoms are severe or you feel unsafe, seek emergency care immediately."
+msgstr "Maaaring mangailangan ng agarang pagsusuri ang mga sintomas na ito. Makipag-ugnayan ngayon sa iyong pangkat ng pangangalaga sa pagbubuntis o lokal na serbisyong pang-emergency. Huwag maghintay ng sagot online. Kung malubha ang mga sintomas o hindi ka ligtas, humingi agad ng emerhensiyang pangangalaga."
+
+msgid "No matching answer"
+msgstr "Walang tugmang sagot"
+
+msgid "I could not find a matching answer in the current information library. Try asking about a specific pregnancy topic, or contact your healthcare professional for personal advice."
+msgstr "Wala akong mahanap na tugmang sagot sa kasalukuyang aklatan ng impormasyon. Subukang magtanong tungkol sa isang partikular na paksa ng pagbubuntis, o makipag-ugnayan sa iyong propesyonal sa pangangalagang pangkalusugan para sa payong naaangkop sa iyo."

@@ -1,0 +1,57 @@
+name: Django CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.14"]
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: bsitcrud
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -proot"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+    env:
+      DJANGO_SETTINGS_MODULE: mysite.settings
+      DJANGO_SECRET_KEY: ci-only-not-a-secret
+      DEBUG: "False"
+      ALLOWED_HOSTS: localhost,127.0.0.1
+      DB_ENGINE: django.db.backends.mysql
+      DB_NAME: bsitcrud
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_HOST: 127.0.0.1
+      DB_PORT: "3306"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install system libraries
+        run: sudo apt-get update && sudo apt-get install -y default-libmysqlclient-dev build-essential pkg-config
+      - name: Install dependencies
+        run: python -m pip install -r requirements-dev.txt
+      - name: Compile translations
+        run: python -c "import polib; from pathlib import Path; [catalog.save_as_mofile(str(catalog.path.with_suffix('.mo'))) for catalog in map(polib.pofile, Path('locale').rglob('*.po'))]"
+      - name: Lint
+        run: ruff check apps mysite manage.py
+      - name: Check formatting
+        run: black --check apps mysite manage.py
+      - name: Django system checks
+        run: python manage.py check
+      - name: Run tests
+        run: python manage.py test --noinput

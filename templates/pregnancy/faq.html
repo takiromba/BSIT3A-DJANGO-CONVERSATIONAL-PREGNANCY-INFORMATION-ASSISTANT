@@ -1,15 +1,16 @@
 {% extends "pregnancy/base.html" %}
+{% load i18n %}
 {% block title %}Frequently Asked Questions{% endblock %}
 {% block content %}
 <div class="page-heading">
-  <div><span class="eyebrow">Here to make things clearer</span><h1>Frequently asked questions</h1><p>Browse answers to common pregnancy questions.</p></div>
-  <a class="button button-pink" href="{% url 'chatbot' %}"><i class="fa-regular fa-message" aria-hidden="true"></i> Ask a question</a>
+  <div><span class="eyebrow">{% trans "Here to make things clearer" %}</span><h1>{% trans "Frequently asked questions" %}</h1><p>{% trans "Browse answers to common pregnancy questions." %}</p></div>
+  <a class="button button-pink" href="{% url 'chatbot' %}"><i class="fa-regular fa-message" aria-hidden="true"></i> {% trans "Ask a question" %}</a>
 </div>
 <form class="library-search" method="get" role="search">
   <label for="faq-search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><span class="visually-hidden">Search FAQs</span></label>
-  <input id="faq-search" type="search" name="q" value="{{ query }}" placeholder="Search questions and answers...">
-  <button class="button button-dark" type="submit">Search FAQs</button>
-  {% if query %}<a class="clear-search" href="{% url 'faq_list' %}">Clear</a>{% endif %}
+  <input id="faq-search" type="search" name="q" value="{{ query }}" placeholder="{% trans 'Search questions and answers...' %}">
+  <button class="button button-dark" type="submit">{% trans "Search FAQs" %}</button>
+  {% if query %}<a class="clear-search" href="{% url 'faq_list' %}">{% trans "Clear" %}</a>{% endif %}
 </form>
 <div class="faq-layout">
   <section class="faq-list">
@@ -17,6 +18,7 @@
     <details class="faq-item">
       <summary>{{ faq.question }}<i class="fa-solid fa-plus" aria-hidden="true"></i></summary>
       <div>{{ faq.answer|linebreaks }}
+        {% if faq.source_name %}<p class="source-note">Source: {% if faq.source_url %}<a href="{{ faq.source_url }}" target="_blank" rel="noopener noreferrer">{{ faq.source_name }}</a>{% else %}{{ faq.source_name }}{% endif %}</p>{% else %}<p class="source-note">References for this answer are being reviewed.</p>{% endif %}
         {% if faq.topic %}<a class="text-link" href="{% url 'topic_detail' faq.topic.slug %}">Explore {{ faq.topic.title }} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>{% endif %}
       </div>
     </details>
@@ -31,10 +33,10 @@
   </section>
   <aside class="faq-help-card">
     <span class="topic-icon topic-lilac"><i class="fa-regular fa-message" aria-hidden="true"></i></span>
-    <h2>Still have a question?</h2>
-    <p>Search the pregnancy library or ask PregnaBot to find a helpful topic.</p>
-    <a class="button button-pink" href="{% url 'chatbot' %}">Chat with PregnaBot <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
-    <small>For personal medical advice, talk with your healthcare professional.</small>
+    <h2>{% trans "Still have a question?" %}</h2>
+    <p>{% trans "Search the pregnancy library or ask PregnaBot to find a helpful topic." %}</p>
+    <a class="button button-pink" href="{% url 'chatbot' %}">{% trans "Chat with PregnaBot" %} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+    <small>{% trans "For personal medical advice, talk with your healthcare professional." %}</small>
   </aside>
 </div>
 {% endblock %}

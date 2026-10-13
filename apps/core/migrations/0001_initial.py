@@ -15,64 +15,138 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='PregnancyTopic',
+            name="PregnancyTopic",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=160)),
-                ('slug', models.SlugField(max_length=180, unique=True)),
-                ('category', models.CharField(choices=[('symptoms', 'Common Symptoms'), ('nutrition', 'Nutrition & Healthy Practices'), ('prenatal', 'Prenatal Care'), ('development', 'Stages & Fetal Development'), ('concerns', 'Common Concerns'), ('warning-signs', 'Warning Signs')], max_length=32)),
-                ('description', models.CharField(max_length=280)),
-                ('content', models.TextField()),
-                ('icon', models.CharField(default='fa-heart', max_length=48)),
-                ('position', models.PositiveSmallIntegerField(default=0)),
-                ('is_published', models.BooleanField(default=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=160)),
+                ("slug", models.SlugField(max_length=180, unique=True)),
+                (
+                    "category",
+                    models.CharField(
+                        choices=[
+                            ("symptoms", "Common Symptoms"),
+                            ("nutrition", "Nutrition & Healthy Practices"),
+                            ("prenatal", "Prenatal Care"),
+                            ("development", "Stages & Fetal Development"),
+                            ("concerns", "Common Concerns"),
+                            ("warning-signs", "Warning Signs"),
+                        ],
+                        max_length=32,
+                    ),
+                ),
+                ("description", models.CharField(max_length=280)),
+                ("content", models.TextField()),
+                ("icon", models.CharField(default="fa-heart", max_length=48)),
+                ("position", models.PositiveSmallIntegerField(default=0)),
+                ("is_published", models.BooleanField(default=True)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
             ],
             options={
-                'ordering': ['position', 'title'],
+                "ordering": ["position", "title"],
             },
         ),
         migrations.CreateModel(
-            name='ChatConversation',
+            name="ChatConversation",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=120)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='pregnabot_conversations', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=120)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="pregnabot_conversations",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-updated_at', '-pk'],
+                "ordering": ["-updated_at", "-pk"],
             },
         ),
         migrations.CreateModel(
-            name='ChatMessage',
+            name="ChatMessage",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('role', models.CharField(choices=[('user', 'You'), ('assistant', 'PregnaBot')], max_length=10)),
-                ('content', models.TextField()),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('conversation', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='messages', to='core.chatconversation')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "role",
+                    models.CharField(
+                        choices=[("user", "You"), ("assistant", "PregnaBot")],
+                        max_length=10,
+                    ),
+                ),
+                ("content", models.TextField()),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "conversation",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="messages",
+                        to="core.chatconversation",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['created_at', 'pk'],
+                "ordering": ["created_at", "pk"],
             },
         ),
         migrations.CreateModel(
-            name='FAQ',
+            name="FAQ",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('question', models.CharField(max_length=280)),
-                ('answer', models.TextField()),
-                ('position', models.PositiveSmallIntegerField(default=0)),
-                ('is_published', models.BooleanField(default=True)),
-                ('topic', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='faqs', to='core.pregnancytopic')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("question", models.CharField(max_length=280)),
+                ("answer", models.TextField()),
+                ("position", models.PositiveSmallIntegerField(default=0)),
+                ("is_published", models.BooleanField(default=True)),
+                (
+                    "topic",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="faqs",
+                        to="core.pregnancytopic",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'FAQ',
-                'verbose_name_plural': 'FAQs',
-                'ordering': ['position', 'question'],
+                "verbose_name": "FAQ",
+                "verbose_name_plural": "FAQs",
+                "ordering": ["position", "question"],
             },
         ),
     ]

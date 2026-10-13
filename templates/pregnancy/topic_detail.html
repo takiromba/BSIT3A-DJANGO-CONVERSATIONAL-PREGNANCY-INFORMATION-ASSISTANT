@@ -8,6 +8,13 @@
   <h1>{{ topic.title }}</h1>
   <p class="article-summary">{{ topic.description }}</p>
   <div class="article-body">{{ topic.content|linebreaks }}</div>
+  {% if topic.source_name %}
+  <p class="source-note">Source: {% if topic.source_url %}<a href="{{ topic.source_url }}" target="_blank" rel="noopener noreferrer">{{ topic.source_name }}</a>{% else %}{{ topic.source_name }}{% endif %}</p>
+  {% else %}<p class="source-note">References for this topic are being reviewed.</p>{% endif %}
+  <form method="post" action="{% url 'bookmark_toggle' topic.pk %}" class="bookmark-form">
+    {% csrf_token %}<input type="hidden" name="next" value="{{ request.path }}">
+    <button class="button button-soft" type="submit"><i class="fa-regular fa-bookmark" aria-hidden="true"></i> Save topic</button>
+  </form>
   <div class="medical-note"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i><span>This information is educational and cannot replace individual medical advice. Please check with your healthcare professional about your own care.</span></div>
 </article>
 {% if faqs %}

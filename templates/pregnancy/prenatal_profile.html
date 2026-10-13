@@ -1,0 +1,47 @@
+{% extends "pregnancy/base.html" %}
+{% load i18n %}
+{% block title %}Pregnancy toolkit{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <div><span class="eyebrow">{% trans "Private pregnancy toolkit" %}</span><h1>{% trans "Pregnancy profile" %}</h1><p>{% trans "Optional dates and appointments saved only to your account." %}</p></div>
+</div>
+<div class="profile-layout">
+  <section class="profile-card">
+    <h2>{% trans "Pregnancy details" %}</h2>
+    <p>{% trans "Conception date is an estimate. Pregnancy dating can differ; confirm dates with your healthcare professional." %}</p>
+    <form method="post" class="profile-form">
+      {% csrf_token %}<input type="hidden" name="save_profile" value="1">
+      <div class="form-field"><label for="{{ form.estimated_conception_date.id_for_label }}">Estimated conception date</label>{{ form.estimated_conception_date }}{% for error in form.estimated_conception_date.errors %}<span class="field-error">{{ error }}</span>{% endfor %}</div>
+      <div class="form-field"><label for="{{ form.blood_type.id_for_label }}">Blood type (optional)</label>{{ form.blood_type }}{% for error in form.blood_type.errors %}<span class="field-error">{{ error }}</span>{% endfor %}</div>
+      <button class="button button-pink" type="submit">{% trans "Save pregnancy details" %}</button>
+    </form>
+    {% if profile.estimated_conception_date %}
+    <div class="pregnancy-summary">
+      <h3>{% trans "Your estimate" %}</h3>
+      <p>{% trans "Estimated due date:" %} <strong>{{ profile.estimated_due_date|date:"F j, Y" }}</strong></p>
+      <p>{% trans "About week" %} <strong>{{ profile.gestational_week }}</strong> · {% trans "trimester" %} <strong>{{ profile.trimester }}</strong></p>
+      <small>{% trans "This calculator is an estimate, not a substitute for clinical dating." %}</small>
+    </div>
+    {% endif %}
+  </section>
+  <section class="profile-card">
+    <h2>{% trans "Appointments" %}</h2>
+    <p>{% trans "Save upcoming visits as a reminder in this app. No external notifications are sent." %}</p>
+    <form method="post" class="profile-form">
+      {% csrf_token %}<input type="hidden" name="add_appointment" value="1">
+      {% for field in appointment_form %}
+      <div class="form-field"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% for error in field.errors %}<span class="field-error">{{ error }}</span>{% endfor %}</div>
+      {% endfor %}
+      <button class="button button-soft" type="submit">{% trans "Save appointment" %}</button>
+    </form>
+    <div class="appointment-list">
+      {% for appointment in appointments %}
+      <article class="appointment-item">
+        <div><strong>{{ appointment.title }}</strong><time>{{ appointment.scheduled_at|date:"M j, Y · g:i A" }}</time>{% if appointment.notes %}<p>{{ appointment.notes }}</p>{% endif %}</div>
+        <form method="post" action="{% url 'appointment_delete' appointment.pk %}">{% csrf_token %}<button type="submit" class="text-button danger-action">{% trans "Remove" %}</button></form>
+      </article>
+      {% empty %}<p>{% trans "No upcoming appointments saved." %}</p>{% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}

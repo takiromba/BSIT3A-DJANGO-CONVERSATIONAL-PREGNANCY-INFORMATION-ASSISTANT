@@ -1,0 +1,17 @@
+{% extends "pregnancy/base.html" %}
+{% block title %}Answer feedback{% endblock %}
+{% block content %}
+<div class="page-heading"><div><span class="eyebrow">Administrator tools</span><h1>Answer feedback</h1><p>Aggregate feedback on PregnaBot answers.</p></div></div>
+<div class="dashboard-stats">
+  <article class="stat-card"><span>Helpful</span><strong>{{ totals.positive }}</strong></article>
+  <article class="stat-card"><span>Not helpful</span><strong>{{ totals.negative }}</strong></article>
+  <article class="stat-card"><span>Unanswered library matches</span><strong>{{ unanswered_count }}</strong></article>
+</div>
+<section class="profile-card">
+  <h2>Questions with feedback</h2>
+  <ol class="analytics-list">
+    {% for item in top_questions %}<li><span>{{ item.content|truncatechars:180 }}</span><strong>{{ item.feedback_count }} answer ratings</strong></li>
+    {% empty %}<li>No user feedback has been submitted yet.</li>{% endfor %}
+  </ol>
+</section>
+{% endblock %}

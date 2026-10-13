@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PregnaBot · Modern Dashboard Concept</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f2fa; --card:#ffffff; --ink:#1d1a2b; --muted:#7c7794;
+    --rose:#f472a0; --rose-deep:#e0457c; --plum:#221a35; --plum-2:#2e2346;
+    --mint:#5ecdb0; --blue:#6aa9f4; --lilac:#b39dfb; --peach:#ffb37e; --red:#f47272;
+    --grad:linear-gradient(135deg,#f472a0 0%,#c86dd7 100%);
+    --shadow:0 10px 30px -12px rgba(34,26,53,.18);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);display:flex;min-height:100vh}
+  ::selection{background:#f9c9e0}
+
+  /* ============ SIDEBAR ============ */
+  .sidebar{width:264px;min-height:100vh;background:linear-gradient(180deg,var(--plum) 0%,var(--plum-2) 100%);color:#cfc8e8;padding:26px 18px 20px;display:flex;flex-direction:column;gap:24px;position:sticky;top:0;height:100vh}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;padding:0 8px}
+  .brand-mark{width:42px;height:42px;border-radius:14px;background:var(--grad);display:grid;place-items:center;font-size:19px;color:#fff;box-shadow:0 8px 18px -6px rgba(244,114,160,.55)}
+  .brand-copy strong{display:block;color:#fff;font-size:17px;letter-spacing:.2px}
+  .brand-copy strong span{color:var(--rose)}
+  .brand-copy small{font-size:10.5px;color:#8f86b8;letter-spacing:.4px}
+  .nav-caption{font-size:10px;letter-spacing:1.6px;color:#6f6698;font-weight:700;padding:0 12px;margin-bottom:6px;display:block}
+  .side-nav{display:flex;flex-direction:column;gap:3px;overflow-y:auto}
+  .side-link{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;color:#b9b1d9;text-decoration:none;font-size:13.5px;font-weight:600;transition:.15s}
+  .side-link .ico{width:20px;text-align:center;font-size:15px;opacity:.85}
+  .side-link:hover{background:rgba(255,255,255,.06);color:#fff}
+  .side-link.is-active{background:var(--grad);color:#fff;box-shadow:0 8px 18px -8px rgba(244,114,160,.6)}
+  .side-link .badge{margin-left:auto;background:var(--rose);color:#fff;font-size:10px;padding:2px 7px;border-radius:99px}
+  .side-link.is-active .badge{background:rgba(255,255,255,.28)}
+  .sidebar-bottom{margin-top:auto;display:flex;flex-direction:column;gap:12px}
+  .side-note{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:14px;font-size:12px;line-height:1.5;color:#a79fd0}
+  .side-note strong{color:#fff}
+  .side-note .h{color:var(--rose);font-size:15px;display:block;margin-bottom:6px}
+  .logout{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;color:#8f86b8;font-size:13px;font-weight:600;background:none;border:0;cursor:pointer;font-family:inherit}
+  .logout:hover{color:#fff;background:rgba(255,255,255,.06)}
+
+  /* ============ MAIN ============ */
+  .main{flex:1;padding:24px 30px 36px;max-width:1200px}
+  .topbar{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+  .gsearch{flex:1;max-width:440px;background:var(--card);border-radius:14px;padding:11px 16px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);color:var(--muted);font-size:13.5px}
+  .gsearch input{border:0;outline:0;font:inherit;color:var(--ink);background:none;flex:1}
+  .topbar-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+  .pill-btn{background:var(--card);border:0;border-radius:12px;width:40px;height:40px;display:grid;place-items:center;box-shadow:var(--shadow);cursor:pointer;font-size:15px;position:relative}
+  .pill-btn .dot{position:absolute;top:9px;right:10px;width:7px;height:7px;background:var(--rose);border-radius:99px;border:2px solid #fff}
+  .lang{background:var(--card);border:0;border-radius:12px;height:40px;padding:0 12px;font:inherit;font-size:12.5px;font-weight:700;color:var(--ink);box-shadow:var(--shadow);cursor:pointer}
+  .user-chip{display:flex;align-items:center;gap:10px;background:var(--card);padding:5px 14px 5px 5px;border-radius:99px;box-shadow:var(--shadow);font-size:13px;font-weight:700}
+  .avatar{width:34px;height:34px;border-radius:99px;background:var(--grad);display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px}
+
+  /* ============ HERO BENTO ============ */
+  .hero{display:grid;grid-template-columns:1.7fr 1fr;gap:18px;margin-bottom:18px}
+  .hero-main{background:var(--grad);border-radius:24px;padding:30px 32px;color:#fff;position:relative;overflow:hidden;box-shadow:0 18px 40px -18px rgba(200,109,215,.55)}
+  .hero-main::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.12)}
+  .hero-main::before{content:"";position:absolute;right:60px;bottom:-90px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .eyebrow{font-size:11px;letter-spacing:1.8px;font-weight:800;opacity:.85;text-transform:uppercase}
+  .hero-main h1{font-size:27px;font-weight:800;margin:8px 0 8px;line-height:1.25}
+  .hero-main p{font-size:13.5px;opacity:.9;max-width:430px;line-height:1.55;margin-bottom:18px}
+  .cta-row{display:flex;gap:10px;position:relative;z-index:1}
+  .btn{border:0;border-radius:12px;padding:12px 20px;font:inherit;font-size:13.5px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:9px}
+  .btn-white{background:#fff;color:var(--rose-deep);box-shadow:0 8px 18px -8px rgba(0,0,0,.25)}
+  .btn-ghost{background:rgba(255,255,255,.16);color:#fff;border:1.5px solid rgba(255,255,255,.4)}
+
+  .week-card{background:var(--card);border-radius:24px;padding:24px 26px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px}
+  .week-top{display:flex;justify-content:space-between;align-items:center}
+  .week-top .lbl{font-size:11px;letter-spacing:1.4px;font-weight:800;color:var(--muted);text-transform:uppercase}
+  .chip{font-size:11px;font-weight:800;padding:5px 11px;border-radius:99px}
+  .chip-lilac{background:#efe9ff;color:#7c5ce0}
+  .week-num{font-size:38px;font-weight:800;color:var(--ink);line-height:1}
+  .week-num small{font-size:14px;color:var(--muted);font-weight:700}
+  .bar{height:9px;border-radius:99px;background:#efeaf8;overflow:hidden}
+  .bar i{display:block;height:100%;width:60%;border-radius:99px;background:var(--grad)}
+  .week-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-weight:600}
+  .week-meta b{color:var(--ink)}
+
+  /* ============ STATS ============ */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:18px}
+  .stat{background:var(--card);border-radius:20px;padding:20px 22px;box-shadow:var(--shadow);display:flex;align-items:center;gap:16px}
+  .stat .sico{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:19px}
+  .s-rose{background:#ffe9f2;color:var(--rose-deep)} .s-mint{background:#e2f8f1;color:#2aa587}
+  .s-blue{background:#e6f0ff;color:#3f7fd6} .s-lilac{background:#efe9ff;color:#7c5ce0}
+  .stat .lbl{font-size:11.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.8px}
+  .stat strong{font-size:23px;font-weight:800;display:block;margin:2px 0}
+  .stat small{font-size:11.5px;color:var(--muted);font-weight:600}
+  .stat small em{color:#2aa587;font-style:normal;font-weight:800}
+
+  /* ============ CONTENT GRID ============ */
+  .grid{display:grid;grid-template-columns:1.5fr 1fr;gap:18px}
+  .card{background:var(--card);border-radius:22px;padding:22px 24px;box-shadow:var(--shadow)}
+  .card + .card{margin-top:18px}
+  .card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+  .card-head h2{font-size:15.5px;font-weight:800}
+  .card-head p{font-size:12px;color:var(--muted);font-weight:600;margin-top:2px}
+  .link{color:var(--rose-deep);font-size:12.5px;font-weight:800;text-decoration:none}
+  .link:hover{text-decoration:underline}
+
+  .actions{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .action{border-radius:16px;padding:16px;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:8px;border:1.5px solid #f0ecf8;transition:.15s;background:#fdfcff}
+  .action:hover{transform:translateY(-2px);border-color:#f6c9dd;box-shadow:0 10px 22px -12px rgba(224,69,124,.35)}
+  .action .aico{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-size:16px}
+  .action strong{font-size:13.5px;font-weight:800}
+  .action span{font-size:11.5px;color:var(--muted);line-height:1.45;font-weight:600}
+
+  .topics{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .topic{display:flex;gap:12px;align-items:center;padding:13px 14px;border-radius:15px;border:1.5px solid #f0ecf8;text-decoration:none;color:var(--ink);background:#fdfcff;transition:.15s}
+  .topic:hover{border-color:#dcd2f6;transform:translateY(-1px)}
+  .topic .tico{width:38px;height:38px;min-width:38px;border-radius:12px;display:grid;place-items:center;font-size:15px}
+  .topic strong{font-size:12.8px;font-weight:800;display:block}
+  .topic span{font-size:11px;color:var(--muted);font-weight:600}
+  .t-rose{background:#ffe9f2;color:var(--rose-deep)} .t-mint{background:#e2f8f1;color:#2aa587}
+  .t-blue{background:#e6f0ff;color:#3f7fd6} .t-lilac{background:#efe9ff;color:#7c5ce0}
+  .t-peach{background:#fff0e3;color:#d97f36} .t-red{background:#ffe9e9;color:#d64545}
+
+  .chat-item{display:flex;gap:12px;align-items:center;padding:12px 6px;border-bottom:1px solid #f3f0fa;text-decoration:none;color:var(--ink)}
+  .chat-item:last-child{border-bottom:0}
+  .chat-item .cico{width:38px;height:38px;min-width:38px;border-radius:12px;background:#ffe9f2;color:var(--rose-deep);display:grid;place-items:center;font-size:14px}
+  .chat-item strong{font-size:12.6px;font-weight:700;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:230px}
+  .chat-item small{font-size:11px;color:var(--muted);font-weight:600}
+  .chat-item .go{margin-left:auto;color:#c9c2dd;font-size:13px}
+
+  .tip{display:flex;gap:11px;align-items:flex-start;padding:9px 0;font-size:12.5px;color:#4c4666;font-weight:600;line-height:1.5}
+  .tip .b{color:var(--rose);font-size:13px;margin-top:1px}
+
+  .reminder{margin-top:18px;background:linear-gradient(135deg,#fff0f5 0%,#f6efff 100%);border:1.5px solid #f8d6e6;border-radius:20px;padding:18px 22px;display:flex;gap:14px;align-items:flex-start}
+  .reminder .ricon{width:40px;height:40px;min-width:40px;border-radius:12px;background:#fff;color:var(--rose-deep);display:grid;place-items:center;font-size:16px;box-shadow:0 4px 10px -4px rgba(224,69,124,.3)}
+  .reminder strong{font-size:13px;font-weight:800;display:block;margin-bottom:3px}
+  .reminder p{font-size:11.8px;color:#6b6386;line-height:1.5;font-weight:600}
+  .reminder .urgent{color:var(--rose-deep)}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <a class="brand" href="#">
+    <span class="brand-mark">♥</span>
+    <span class="brand-copy"><strong>Pregna<span>Bot</span></strong><small>Your Pregnancy Guide</small></span>
+  </a>
+  <nav class="side-nav">
+    <span class="nav-caption">YOUR SPACE</span>
+    <a class="side-link is-active" href="#"><span class="ico">⌂</span>Dashboard</a>
+    <a class="side-link" href="#"><span class="ico">💬</span>Chat with PregnaBot<span class="badge">3 new</span></a>
+    <a class="side-link" href="#"><span class="ico">📖</span>Pregnancy Information</a>
+    <a class="side-link" href="#"><span class="ico">❓</span>FAQs</a>
+    <a class="side-link" href="#"><span class="ico">☺</span>My Profile</a>
+    <a class="side-link" href="#"><span class="ico">🤰</span>Pregnancy toolkit</a>
+    <a class="side-link" href="#"><span class="ico">🔖</span>Saved topics<span class="badge">7</span></a>
+    <a class="side-link" href="#"><span class="ico">🪪</span>My records</a>
+    <span class="nav-caption" style="margin-top:14px">ADMIN</span>
+    <a class="side-link" href="#"><span class="ico">⚙</span>User management</a>
+    <a class="side-link" href="#"><span class="ico">📊</span>Answer feedback</a>
+  </nav>
+  <div class="sidebar-bottom">
+    <div class="side-note">
+      <span class="h">♥</span>
+      Healthy moms.<br><strong>Brighter tomorrows.</strong>
+    </div>
+    <button class="logout"><span class="ico">↩</span>Log out</button>
+  </div>
+</aside>
+
+<main class="main">
+  <header class="topbar">
+    <div class="gsearch">🔍 <input placeholder="Search pregnancy topics..." value=""></div>
+    <div class="topbar-right">
+      <select class="lang"><option>EN · English</option><option>FIL · Filipino</option></select>
+      <button class="pill-btn">🔔<span class="dot"></span></button>
+      <div class="user-chip"><span class="avatar">M</span>Maria Santos ▾</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-main">
+      <span class="eyebrow">A gentle guide for your journey</span>
+      <h1>Good morning, Maria! 👋</h1>
+      <p>Welcome back to PregnaBot — your trusted companion for reliable, easy-to-understand pregnancy information. You're doing great!</p>
+      <div class="cta-row">
+        <a class="btn btn-white" href="#">💬 Ask PregnaBot</a>
+        <a class="btn btn-ghost" href="#">Browse topics →</a>
+      </div>
+    </div>
+    <div class="week-card">
+      <div class="week-top">
+        <span class="lbl">Your journey</span>
+        <span class="chip chip-lilac">2nd trimester</span>
+      </div>
+      <div class="week-num">Week 24 <small>of 40</small></div>
+      <div class="bar"><i></i></div>
+      <div class="week-meta"><span><b>60%</b> of the way</span><span>Due <b>Feb 14, 2027</b></span></div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat">
+      <span class="sico s-rose">💬</span>
+      <div><span class="lbl">Questions asked</span><strong>47</strong><small><em>+8</em> this week</small></div>
+    </div>
+    <div class="stat">
+      <span class="sico s-mint">🕐</span>
+      <div><span class="lbl">Last chat activity</span><strong>Today</strong><small>9:41 AM</small></div>
+    </div>
+    <div class="stat">
+      <span class="sico s-blue">📚</span>
+      <div><span class="lbl">Topics to explore</span><strong>24</strong><small>6 categories · 7 saved</small></div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div>
+      <div class="card">
+        <div class="card-head">
+          <div><h2>Quick actions</h2><p>Everything you need, one tap away</p></div>
+          <a class="link" href="#">Explore all →</a>
+        </div>
+        <div class="actions">
+          <a class="action" href="#">
+            <span class="aico t-rose">💬</span>
+            <strong>Chat with PregnaBot</strong>
+            <span>Ask a question and explore helpful answers.</span>
+          </a>
+          <a class="action" href="#">
+            <span class="aico t-lilac">📖</span>
+            <strong>Pregnancy Information</strong>
+            <span>Browse helpful topics for each stage.</span>
+          </a>
+          <a class="action" href="#">
+            <span class="aico t-mint">❓</span>
+            <strong>Frequently Asked</strong>
+            <span>Find quick answers to common questions.</span>
+          </a>
+          <a class="action" href="#">
+            <span class="aico t-blue">🪪</span>
+            <strong>My Profile</strong>
+            <span>Keep your account details up to date.</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div><h2>Pregnancy topics</h2><p>Browse information by category</p></div>
+          <a class="link" href="#">View all →</a>
+        </div>
+        <div class="topics">
+          <a class="topic" href="#"><span class="tico t-rose">🤒</span><span><strong>Common Symptoms</strong><span>What to expect week by week</span></span></a>
+          <a class="topic" href="#"><span class="tico t-mint">🍎</span><span><strong>Nutrition &amp; Healthy Practices</strong><span>Eat well for two</span></span></a>
+          <a class="topic" href="#"><span class="tico t-blue">🩺</span><span><strong>Prenatal Care</strong><span>Checkups &amp; appointments</span></span></a>
+          <a class="topic" href="#"><span class="tico t-lilac">👶</span><span><strong>Stages &amp; Fetal Development</strong><span>Your baby's growth story</span></span></a>
+          <a class="topic" href="#"><span class="tico t-peach">💗</span><span><strong>Common Concerns</strong><span>Answers to worries</span></span></a>
+          <a class="topic" href="#"><span class="tico t-red">⚠️</span><span><strong>Warning Signs</strong><span>When to seek care now</span></span></a>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <div class="card-head">
+          <div><h2>Recent chats</h2><p>Continue where you left off</p></div>
+          <a class="link" href="#">View all →</a>
+        </div>
+        <a class="chat-item" href="#"><span class="cico">💬</span><span><strong>Is it normal to feel dizzy during…</strong><small>Today, 9:41 AM</small></span><span class="go">›</span></a>
+        <a class="chat-item" href="#"><span class="cico">💬</span><span><strong>What foods should I avoid while…</strong><small>Yesterday, 7:12 PM</small></span><span class="go">›</span></a>
+        <a class="chat-item" href="#"><span class="cico">💬</span><span><strong>How much folic acid do I need in…</strong><small>Oct 9, 2:03 PM</small></span><span class="go">›</span></a>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div><h2>💡 Quick tips</h2></div>
+          <a class="link" href="#">Explore →</a>
+        </div>
+        <div class="tip"><span class="b">●</span>Eat a balanced diet and stay hydrated.</div>
+        <div class="tip"><span class="b">●</span>Take your prenatal vitamins at the same time each day.</div>
+        <div class="tip"><span class="b">●</span>Attend your recommended prenatal checkups.</div>
+        <div class="tip"><span class="b">●</span>Make time for rest and gentle movement if advised.</div>
+      </div>
+
+      <div class="reminder">
+        <span class="ricon">♥</span>
+        <div>
+          <strong>Important reminder</strong>
+          <p>PregnaBot shares general educational information and is not a substitute for professional medical advice.</p>
+          <p class="urgent">For urgent symptoms or warning signs, seek medical care right away →</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+</body>
+</html>

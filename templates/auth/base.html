@@ -1,0 +1,19 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}PregnaBot{% endblock %} · Your Pregnancy Guide</title>
+  <link rel="stylesheet" href="{% static 'css/pregnabot.css' %}">
+</head>
+<body class="auth-page">
+  <main class="auth-card">
+    <a class="brand auth-brand" href="{% url 'login' %}">
+      <span class="brand-mark"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i></span>
+      <span class="brand-copy"><strong>Pregna<span>Bot</span></strong><small>Your Pregnancy Guide</small></span>
+    </a>
+    {% block auth_content %}{% endblock %}
+  </main>
+</body>
+</html>

@@ -40,3 +40,10 @@ venv/
 # Django generated files
 staticfiles/
 media/
+backups/
+
+# Test and lint artifacts
+.coverage
+coverage.xml
+.ruff_cache/
+.mypy_cache/

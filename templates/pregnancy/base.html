@@ -1,10 +1,11 @@
-{% load static %}
+{% load static i18n %}
 <!doctype html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#19243e">
+  <link rel="manifest" href="{% static 'manifest.webmanifest' %}">
   <title>{% block title %}PregnaBot{% endblock %} · Your Pregnancy Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,22 +23,39 @@
         <span class="brand-copy"><strong>Pregna<span>Bot</span></strong><small>Your Pregnancy Guide</small></span>
       </a>
       <nav class="side-nav">
-        <span class="nav-caption">YOUR SPACE</span>
+        <span class="nav-caption">{% trans "YOUR SPACE" %}</span>
         <a class="side-link {% if request.resolver_match.url_name == 'dashboard' %}is-active{% endif %}" href="{% url 'dashboard' %}">
-          <i class="fa-solid fa-house" aria-hidden="true"></i><span>Dashboard</span>
+          <i class="fa-solid fa-house" aria-hidden="true"></i><span>{% trans "Dashboard" %}</span>
         </a>
         <a class="side-link {% if request.resolver_match.url_name == 'chatbot' or request.resolver_match.url_name == 'chat_conversation' %}is-active{% endif %}" href="{% url 'chatbot' %}">
-          <i class="fa-regular fa-message" aria-hidden="true"></i><span>Chat with PregnaBot</span>
+          <i class="fa-regular fa-message" aria-hidden="true"></i><span>{% trans "Chat with PregnaBot" %}</span>
         </a>
         <a class="side-link {% if request.resolver_match.url_name == 'pregnancy_information' or request.resolver_match.url_name == 'topic_detail' %}is-active{% endif %}" href="{% url 'pregnancy_information' %}">
-          <i class="fa-solid fa-book-open" aria-hidden="true"></i><span>Pregnancy Information</span>
+          <i class="fa-solid fa-book-open" aria-hidden="true"></i><span>{% trans "Pregnancy Information" %}</span>
         </a>
         <a class="side-link {% if request.resolver_match.url_name == 'faq_list' %}is-active{% endif %}" href="{% url 'faq_list' %}">
-          <i class="fa-regular fa-circle-question" aria-hidden="true"></i><span>FAQs</span>
+          <i class="fa-regular fa-circle-question" aria-hidden="true"></i><span>{% trans "FAQs" %}</span>
         </a>
         <a class="side-link {% if request.resolver_match.url_name == 'profile' %}is-active{% endif %}" href="{% url 'profile' %}">
-          <i class="fa-regular fa-user" aria-hidden="true"></i><span>My Profile</span>
+          <i class="fa-regular fa-user" aria-hidden="true"></i><span>{% trans "My Profile" %}</span>
         </a>
+        <a class="side-link {% if request.resolver_match.url_name == 'pregnancy_profile' %}is-active{% endif %}" href="{% url 'pregnancy_profile' %}">
+          <i class="fa-solid fa-baby" aria-hidden="true"></i><span>{% trans "Pregnancy toolkit" %}</span>
+        </a>
+        <a class="side-link {% if request.resolver_match.url_name == 'bookmarks' %}is-active{% endif %}" href="{% url 'bookmarks' %}">
+          <i class="fa-regular fa-bookmark" aria-hidden="true"></i><span>{% trans "Saved topics" %}</span>
+        </a>
+        <a class="side-link {% if request.resolver_match.url_name == 'info_list' %}is-active{% endif %}" href="{% url 'info:info_list' %}">
+          <i class="fa-regular fa-address-card" aria-hidden="true"></i><span>{% trans "My records" %}</span>
+        </a>
+        {% if request.user.is_superuser %}
+        <a class="side-link {% if request.resolver_match.url_name == 'user_list' %}is-active{% endif %}" href="{% url 'users:user_list' %}">
+          <i class="fa-solid fa-users-gear" aria-hidden="true"></i><span>{% trans "User management" %}</span>
+        </a>
+        <a class="side-link {% if request.resolver_match.url_name == 'feedback_analytics' %}is-active{% endif %}" href="{% url 'feedback_analytics' %}">
+          <i class="fa-solid fa-chart-simple" aria-hidden="true"></i><span>{% trans "Answer feedback" %}</span>
+        </a>
+        {% endif %}
       </nav>
       <div class="sidebar-bottom">
         <div class="sidebar-note">
@@ -52,7 +70,7 @@
         <form method="post" action="{% url 'logout' %}">
           {% csrf_token %}
           <button class="side-link logout-link" type="submit">
-            <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i><span>Log out</span>
+            <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i><span>{% trans "Log out" %}</span>
           </button>
         </form>
         <div class="sidebar-footer">A little support for every step <i class="fa-solid fa-sparkles" aria-hidden="true"></i></div>
@@ -66,10 +84,18 @@
         </button>
         <form class="global-search" action="{% url 'pregnancy_information' %}" method="get" role="search">
           <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-          <input type="search" name="q" value="{{ request.GET.q|default:'' }}" placeholder="Search pregnancy topics..." aria-label="Search pregnancy information">
-          <button type="submit">Search</button>
+          <input type="search" name="q" value="{{ request.GET.q|default:'' }}" placeholder="{% trans 'Search pregnancy topics...' %}" aria-label="{% trans 'Search pregnancy information' %}">
+          <button type="submit">{% trans "Search" %}</button>
         </form>
         <div class="topbar-right">
+          <form method="post" action="{% url 'set_language' %}" class="language-switch">
+            {% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}">
+            <label class="visually-hidden" for="language-select">{% trans "Language" %}</label>
+            <select id="language-select" name="language" onchange="this.form.submit()" aria-label="{% trans 'Choose language' %}">
+              <option value="en" {% if LANGUAGE_CODE == 'en' or LANGUAGE_CODE == 'en-us' %}selected{% endif %}>English</option>
+              <option value="fil" {% if LANGUAGE_CODE == 'fil' %}selected{% endif %}>Filipino</option>
+            </select>
+          </form>
           <a class="notification-button" href="{% url 'faq_list' %}" aria-label="Browse helpful answers" title="Browse helpful answers">
             <i class="fa-regular fa-bell" aria-hidden="true"></i><span></span>
           </a>
@@ -106,6 +132,11 @@
     </main>
   </div>
   <script src="{% static 'js/pregnabot.js' %}" defer></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register("{% static 'js/service-worker.js' %}"));
+    }
+  </script>
   {% block extra_js %}{% endblock %}
 </body>
 </html>

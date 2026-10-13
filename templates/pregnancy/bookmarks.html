@@ -1,0 +1,15 @@
+{% extends "pregnancy/base.html" %}
+{% block title %}Saved topics{% endblock %}
+{% block content %}
+<div class="page-heading"><div><span class="eyebrow">Your library</span><h1>Saved topics</h1><p>Topics you bookmarked for later.</p></div></div>
+<div class="library-grid">
+  {% for topic in topics %}
+  <article class="library-card bookmark-card">
+    <a href="{% url 'topic_detail' topic.slug %}" class="library-card-content"><strong>{{ topic.title }}</strong><span>{{ topic.description }}</span></a>
+    <form method="post" action="{% url 'bookmark_toggle' topic.pk %}">{% csrf_token %}<input type="hidden" name="next" value="{% url 'bookmarks' %}"><button class="text-button" type="submit" aria-label="Remove {{ topic.title }} from saved topics">Remove</button></form>
+  </article>
+  {% empty %}
+  <div class="empty-state page-empty"><strong>No saved topics yet</strong><p>Bookmark a topic from the information library to find it here.</p><a class="button button-soft" href="{% url 'pregnancy_information' %}">Browse topics</a></div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -486,3 +486,66 @@ button, a, summary { -webkit-tap-highlight-color: transparent; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+.auth-page { display: grid; min-height: 100vh; place-items: center; padding: 24px; background: radial-gradient(circle at 15% 15%, #fff0f6, transparent 35%), var(--canvas); }
+.auth-card { width: min(100%, 440px); padding: 30px; border: 1px solid var(--line); border-radius: 18px; background: #fff; box-shadow: var(--shadow); }
+.auth-brand { width: fit-content; margin: 0 auto 25px; padding: 0; color: var(--ink); }
+.auth-brand .brand-copy small { color: var(--muted); }
+.auth-card h1 { margin: 0; text-align: center; font: 800 22px/1.35 "Manrope",sans-serif; }
+.auth-intro, .auth-switch { color: var(--muted); text-align: center; font-size: 12px; }
+.auth-form { display: grid; gap: 15px; margin-top: 22px; }
+.auth-form .form-field input, .auth-form .form-field select { width: 100%; min-height: 42px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 9px; background: #fff; color: var(--ink); }
+.auth-form .button { min-height: 43px; margin-top: 3px; }
+.auth-switch { margin: 20px 0 0; }
+.auth-switch a, .source-note a { color: var(--pink-dark); font-weight: 700; }
+.form-alert { margin: 12px 0; padding: 10px 12px; border: 1px solid #f3c3cf; border-radius: 9px; color: #8e3653; background: #fff2f5; font-size: 12px; }
+.field-error { color: #b33555; font-size: 11px; }
+.source-note { margin-top: 14px; color: var(--muted); font-size: 11px; }
+.bookmark-form { margin-top: 18px; }
+.suggestion-question { padding: 8px 11px; border: 1px solid #f3dce8; border-radius: 999px; color: #8f4770; background: #fff7fa; font-size: 11px; cursor: pointer; }
+.message-source { margin-top: 8px; color: var(--muted); font-size: 11px; }
+.message-feedback, .message-pagination, .appointment-item { display: flex; align-items: center; gap: 10px; margin-top: 10px; color: var(--muted); font-size: 11px; }
+.message-feedback form { margin: 0; }
+.message-feedback button, .conversation-actions button { border: 1px solid var(--line); border-radius: 7px; padding: 4px 7px; background: #fff; cursor: pointer; }
+.message-feedback button:disabled { opacity: .55; }
+.message-pagination { justify-content: space-between; padding: 8px 16px; border-top: 1px solid var(--line); }
+.message-pagination a, .conversation-actions a { color: var(--pink-dark); }
+.chat-history-row { display: grid; grid-template-columns: 1fr; }
+.conversation-actions { padding: 0 12px 10px; color: var(--muted); font-size: 10px; }
+.conversation-actions summary { cursor: pointer; }
+.conversation-actions form { display: flex; gap: 5px; margin: 6px 0; }
+.conversation-actions input { min-width: 0; width: 100%; padding: 5px; }
+.danger-action { color: #b33555 !important; }
+.pregnancy-summary, .appointment-list { margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--line); }
+.pregnancy-summary h3 { margin: 0 0 8px; }
+.appointment-item { justify-content: space-between; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.appointment-item time, .appointment-item p { display: block; margin-top: 5px; }
+.text-button { border: 0; padding: 4px; background: transparent; cursor: pointer; }
+.analytics-list { display: grid; gap: 10px; padding-left: 20px; }
+.analytics-list li { padding: 10px 0; }
+.analytics-list strong { display: block; color: var(--muted); font-size: 11px; }
+.dashboard-stats { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; margin-bottom: 18px; }
+.dashboard-stats .stat-card { padding: 18px; border: 1px solid var(--line); border-radius: 13px; background: #fff; }
+.dashboard-stats .stat-card strong, .dashboard-stats .stat-card span { display: block; }
+.dashboard-stats .stat-card strong { margin-top: 5px; font-size: 24px; }
+.bookmark-card { align-items: center; justify-content: space-between; }
+.bookmark-card .library-card-content { flex: 1; }
+.admin-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+.admin-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.admin-table th, .admin-table td { padding: 12px 14px; border-bottom: 1px solid #eff1f5; text-align: left; }
+.admin-table th { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .45px; }
+.admin-actions { white-space: nowrap; }
+.admin-dialog { width: min(94vw, 490px); max-height: 90vh; overflow: auto; border: 1px solid var(--line); border-radius: 16px; padding: 24px; box-shadow: 0 18px 60px rgba(32,43,73,.2); }
+.admin-dialog::backdrop { background: rgba(20,30,52,.48); }
+.admin-dialog form { display: grid; gap: 12px; }
+.admin-dialog h2 { margin: 0; }
+.admin-dialog label { display: grid; gap: 5px; color: #59657d; font-size: 11px; font-weight: 700; }
+.admin-dialog input:not([type=checkbox]) { min-height: 38px; padding: 8px; border: 1px solid var(--line); border-radius: 8px; }
+.admin-dialog small { color: var(--muted); font-weight: 400; }
+.admin-dialog .admin-check { display: flex; align-items: center; }
+.dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px; }
+@media (max-width: 520px) {
+  .auth-page { padding: 12px; }
+  .auth-card { padding: 22px 16px; }
+  .dashboard-stats { grid-template-columns: 1fr; }
+}

@@ -11,17 +11,17 @@
       {% csrf_token %}
       <div class="form-field">
         <label for="profile-first-name">First name</label>
-        <input id="profile-first-name" type="text" name="first_name" value="{{ request.user.first_name }}" maxlength="150" autocomplete="given-name" required>
+        <input id="profile-first-name" type="text" name="first_name" value="{{ form.first_name.value|default_if_none:'' }}" maxlength="150" autocomplete="given-name" required>
         {% if errors.first_name %}<span class="field-error">{{ errors.first_name }}</span>{% endif %}
       </div>
       <div class="form-field">
         <label for="profile-last-name">Last name</label>
-        <input id="profile-last-name" type="text" name="last_name" value="{{ request.user.last_name }}" maxlength="150" autocomplete="family-name" required>
+        <input id="profile-last-name" type="text" name="last_name" value="{{ form.last_name.value|default_if_none:'' }}" maxlength="150" autocomplete="family-name" required>
         {% if errors.last_name %}<span class="field-error">{{ errors.last_name }}</span>{% endif %}
       </div>
       <div class="form-field">
         <label for="profile-email">Email address</label>
-        <input id="profile-email" type="email" name="email" value="{{ request.user.email }}" maxlength="254" autocomplete="email" required>
+        <input id="profile-email" type="email" name="email" value="{{ form.email.value|default_if_none:'' }}" maxlength="254" autocomplete="email" required>
         {% if errors.email %}<span class="field-error">{{ errors.email }}</span>{% endif %}
       </div>
       <div class="profile-form-footer"><span>Your username, <strong>{{ request.user.username }}</strong>, is used to sign in.</span><button class="button button-pink" type="submit"><i class="fa-regular fa-floppy-disk" aria-hidden="true"></i> Save changes</button></div>

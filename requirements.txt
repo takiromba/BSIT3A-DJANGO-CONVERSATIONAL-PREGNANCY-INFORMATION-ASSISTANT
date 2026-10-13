@@ -1,3 +1,5 @@
-Django==5.0.14
+Django==5.2.18
 mysqlclient==2.2.8
 openpyxl==3.1.5
+python-decouple==3.8
+whitenoise==6.11.0
