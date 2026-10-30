@@ -2,6 +2,9 @@
 <!doctype html>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
+<link rel="stylesheet"
+      href="{% static 'css/app-theme.css' %}">
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#19243e">
@@ -18,43 +21,51 @@
   <div class="app-shell">
     <div class="sidebar-scrim" data-sidebar-close></div>
     <aside class="sidebar" id="app-sidebar" aria-label="Main navigation">
-      <a class="brand" href="{% url 'dashboard' %}">
+      <a class="brand" href="{% if request.user.is_authenticated %}{% url 'dashboard' %}{% else %}{% url 'public_home' %}{% endif %}">
         <span class="brand-mark"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i></span>
         <span class="brand-copy"><strong>Pregna<span>Bot</span></strong><small>Your Pregnancy Guide</small></span>
       </a>
-      <nav class="side-nav">
+      <nav class="side-nav" aria-label="Sidebar navigation">
         <span class="nav-caption">{% trans "YOUR SPACE" %}</span>
-        <a class="side-link {% if request.resolver_match.url_name == 'dashboard' %}is-active{% endif %}" href="{% url 'dashboard' %}">
-          <i class="fa-solid fa-house" aria-hidden="true"></i><span>{% trans "Dashboard" %}</span>
-        </a>
+        {% if request.user.is_authenticated %}
+          <a class="side-link {% if request.resolver_match.url_name == 'dashboard' %}is-active{% endif %}" href="{% url 'dashboard' %}">
+            <i class="fa-solid fa-house" aria-hidden="true"></i><span>{% trans "Dashboard" %}</span>
+          </a>
+        {% endif %}
         <a class="side-link {% if request.resolver_match.url_name == 'chatbot' or request.resolver_match.url_name == 'chat_conversation' %}is-active{% endif %}" href="{% url 'chatbot' %}">
           <i class="fa-regular fa-message" aria-hidden="true"></i><span>{% trans "Chat with PregnaBot" %}</span>
         </a>
+        {% if request.user.is_authenticated %}
+          <a class="side-link {% if request.resolver_match.url_name == 'conversation_history' %}is-active{% endif %}" href="{% url 'conversation_history' %}">
+            <i class="fa-regular fa-clock" aria-hidden="true"></i><span>{% trans "Conversation History" %}</span>
+          </a>
+        {% endif %}
         <a class="side-link {% if request.resolver_match.url_name == 'pregnancy_information' or request.resolver_match.url_name == 'topic_detail' %}is-active{% endif %}" href="{% url 'pregnancy_information' %}">
           <i class="fa-solid fa-book-open" aria-hidden="true"></i><span>{% trans "Pregnancy Information" %}</span>
         </a>
         <a class="side-link {% if request.resolver_match.url_name == 'faq_list' %}is-active{% endif %}" href="{% url 'faq_list' %}">
           <i class="fa-regular fa-circle-question" aria-hidden="true"></i><span>{% trans "FAQs" %}</span>
         </a>
-        <a class="side-link {% if request.resolver_match.url_name == 'profile' %}is-active{% endif %}" href="{% url 'profile' %}">
-          <i class="fa-regular fa-user" aria-hidden="true"></i><span>{% trans "My Profile" %}</span>
-        </a>
-        <a class="side-link {% if request.resolver_match.url_name == 'pregnancy_profile' %}is-active{% endif %}" href="{% url 'pregnancy_profile' %}">
-          <i class="fa-solid fa-baby" aria-hidden="true"></i><span>{% trans "Pregnancy toolkit" %}</span>
-        </a>
-        <a class="side-link {% if request.resolver_match.url_name == 'bookmarks' %}is-active{% endif %}" href="{% url 'bookmarks' %}">
-          <i class="fa-regular fa-bookmark" aria-hidden="true"></i><span>{% trans "Saved topics" %}</span>
-        </a>
-        <a class="side-link {% if request.resolver_match.url_name == 'info_list' %}is-active{% endif %}" href="{% url 'info:info_list' %}">
-          <i class="fa-regular fa-address-card" aria-hidden="true"></i><span>{% trans "My records" %}</span>
-        </a>
-        {% if request.user.is_superuser %}
-        <a class="side-link {% if request.resolver_match.url_name == 'user_list' %}is-active{% endif %}" href="{% url 'users:user_list' %}">
-          <i class="fa-solid fa-users-gear" aria-hidden="true"></i><span>{% trans "User management" %}</span>
-        </a>
-        <a class="side-link {% if request.resolver_match.url_name == 'feedback_analytics' %}is-active{% endif %}" href="{% url 'feedback_analytics' %}">
-          <i class="fa-solid fa-chart-simple" aria-hidden="true"></i><span>{% trans "Answer feedback" %}</span>
-        </a>
+        {% if request.user.is_authenticated %}
+          <a class="side-link {% if request.resolver_match.url_name == 'profile' or request.resolver_match.url_name == 'pregnancy_profile' %}is-active{% endif %}" href="{% url 'profile' %}">
+            <i class="fa-regular fa-user" aria-hidden="true"></i><span>{% trans "My Profile" %}</span>
+          </a>
+          <a class="side-link {% if request.resolver_match.url_name == 'settings' %}is-active{% endif %}" href="{% url 'settings' %}">
+            <i class="fa-solid fa-gear" aria-hidden="true"></i><span>{% trans "Settings" %}</span>
+          </a>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="side-link logout-link" type="submit">
+              <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i><span>{% trans "Logout" %}</span>
+            </button>
+          </form>
+        {% else %}
+          <a class="side-link" href="{% url 'login' %}">
+            <i class="fa-regular fa-user" aria-hidden="true"></i><span>{% trans "Log in" %}</span>
+          </a>
+          <a class="side-link" href="{% url 'register' %}">
+            <i class="fa-solid fa-user-plus" aria-hidden="true"></i><span>{% trans "Create account" %}</span>
+          </a>
         {% endif %}
       </nav>
       <div class="sidebar-bottom">
@@ -67,12 +78,6 @@
             <path d="M72 102c-8-9-22-2-14 8l13 12 13-12c8-10-6-17-12-8Z"/>
           </svg>
         </div>
-        <form method="post" action="{% url 'logout' %}">
-          {% csrf_token %}
-          <button class="side-link logout-link" type="submit">
-            <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i><span>{% trans "Log out" %}</span>
-          </button>
-        </form>
         <div class="sidebar-footer">A little support for every step <i class="fa-solid fa-sparkles" aria-hidden="true"></i></div>
       </div>
     </aside>
@@ -96,23 +101,29 @@
               <option value="fil" {% if LANGUAGE_CODE == 'fil' %}selected{% endif %}>Filipino</option>
             </select>
           </form>
-          <a class="notification-button" href="{% url 'faq_list' %}" aria-label="Browse helpful answers" title="Browse helpful answers">
-            <i class="fa-regular fa-bell" aria-hidden="true"></i><span></span>
-          </a>
-          <details class="account-menu">
-            <summary aria-label="Open account menu">
-              <span class="avatar">{{ request.user.first_name|first|default:request.user.username|first|upper }}</span>
-              <span class="account-name">{{ display_name|default:request.user.get_full_name|default:request.user.username }}</span>
-              <i class="fa-solid fa-chevron-down account-chevron" aria-hidden="true"></i>
-            </summary>
-            <div class="account-dropdown">
-              <a href="{% url 'profile' %}"><i class="fa-regular fa-user" aria-hidden="true"></i> My profile</a>
-              <form method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit"><i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Log out</button>
-              </form>
-            </div>
-          </details>
+          {% if request.user.is_authenticated %}
+            <a class="notification-button" href="{% url 'settings' %}" aria-label="{% trans 'Notification preferences' %}" title="{% trans 'Notification preferences' %}">
+              <i class="fa-regular fa-bell" aria-hidden="true"></i>
+            </a>
+            <details class="account-menu">
+              <summary aria-label="Open account menu">
+                <span class="avatar">{{ request.user.first_name|first|default:request.user.username|first|upper }}</span>
+                <span class="account-name">{{ display_name|default:request.user.get_full_name|default:request.user.username }}</span>
+                <i class="fa-solid fa-chevron-down account-chevron" aria-hidden="true"></i>
+              </summary>
+              <div class="account-dropdown">
+                <a href="{% url 'profile' %}"><i class="fa-regular fa-user" aria-hidden="true"></i> My profile</a>
+                <a href="{% url 'settings' %}"><i class="fa-solid fa-gear" aria-hidden="true"></i> Settings</a>
+                <form method="post" action="{% url 'logout' %}">
+                  {% csrf_token %}
+                  <button type="submit"><i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Log out</button>
+                </form>
+              </div>
+            </details>
+          {% else %}
+            <a class="button button-soft" href="{% url 'login' %}">{% trans "Log in" %}</a>
+            <a class="button button-pink" href="{% url 'register' %}">{% trans "Create account" %}</a>
+          {% endif %}
         </div>
       </header>
 

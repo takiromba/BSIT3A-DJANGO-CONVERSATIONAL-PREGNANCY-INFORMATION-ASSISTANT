@@ -1,0 +1,455 @@
+[
+  {
+    "category": "symptoms",
+    "question": "Are nausea and vomiting common during pregnancy?",
+    "alternate_questions": [
+      "Normal lang ba nga ginasuka ako habang buntis?",
+      "Normal lang bala nga pirmi ko ginasuka?",
+      "I feel sick and vomit often during pregnancy",
+      "Nausea and vomiting in pregnancy",
+      "Ginabusog ko kag ginasuka",
+      "Pirmi ko ginasuka samtang buntis"
+    ],
+    "answer": "Nausea and vomiting are common in early pregnancy and can vary from person to person. Some people feel mild nausea, while others have more frequent vomiting. Eating small, frequent meals, staying hydrated, and discussing persistent symptoms with a healthcare professional can help you plan safe support. If vomiting is severe, you cannot keep fluids down, or you feel faint, seek medical advice promptly.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "symptoms",
+    "question": "Is feeling tired during pregnancy normal?",
+    "alternate_questions": [
+      "Kapoy gid ko bisan wala ko may ginhimo",
+      "Why am I so tired during pregnancy?",
+      "Normal lang ba nga kapoy gid ako?",
+      "Sleeping more than usual while pregnant",
+      "I am exhausted in early pregnancy"
+    ],
+    "answer": "Feeling unusually tired is common during pregnancy, especially in the first and third trimesters. Fatigue can happen because your body is adapting to hormonal changes and increased energy demands. Rest, hydration, and a balanced routine can help. If the tiredness is severe, comes with shortness of breath, chest pain, or fainting, seek urgent medical assessment.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "symptoms",
+    "question": "Why do I get heartburn during pregnancy?",
+    "alternate_questions": [
+      "Why do I have heartburn while pregnant?",
+      "Pirmi ko may asdo sa dughano",
+      "Heartburn and reflux during pregnancy",
+      "I feel burning in my chest while pregnant"
+    ],
+    "answer": "Heartburn is common during pregnancy because the stomach and intestines can be compressed by the growing uterus, and hormonal changes may relax the valve between the stomach and food pipe. Small meals, avoiding lying down right after eating, and discussing ongoing symptoms with your healthcare professional are sensible steps. If the pain is severe or you have chest pain, difficulty breathing, or vomiting blood, seek urgent care.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "symptoms",
+    "question": "Why am I urinating more often during pregnancy?",
+    "alternate_questions": [
+      "Pirmi ko nagapadumi",
+      "Frequent urination in pregnancy",
+      "Why do I need to pee more often in early pregnancy?",
+      "I feel the urge to urinate often while pregnant"
+    ],
+    "answer": "More frequent urination is common during pregnancy, especially early on and again later as the uterus grows and pressure increases. It is usually not a sign of a urinary infection on its own, but if you also have burning pain, fever, or blood in the urine, speak with a healthcare professional. If you are having severe pain or other concerning symptoms, seek medical care.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "symptoms",
+    "question": "Are mild cramps or discomforts normal during pregnancy?",
+    "alternate_questions": [
+      "Normal lang ba nga may sakit tiyan?",
+      "Mild abdominal discomfort during pregnancy",
+      "I have mild cramps while pregnant",
+      "Buntis ko kag may sakit sa tiyan"
+    ],
+    "answer": "Mild cramps or stretching-type discomfort may happen during pregnancy, especially as the uterus changes. Many discomforts are not dangerous, but any severe or persistent pain, bleeding, dizziness, or worsening symptoms should be checked promptly by a healthcare professional. Do not assume all pain is harmless without considering your symptoms and timing.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "nutrition",
+    "question": "What foods are healthy during pregnancy?",
+    "alternate_questions": [
+      "Ano ang mga healthy foods during pregnancy?",
+      "What should I eat while pregnant?",
+      "Mga pagkaon nga dapat kainon habang buntis",
+      "Balanced diet during pregnancy"
+    ],
+    "answer": "A balanced diet that includes vegetables, fruits, whole grains, lean proteins, and healthy fats can support pregnancy wellbeing. Drinking enough fluids and choosing foods that provide iron, folate, calcium, and protein is often encouraged. If you have nausea, appetite changes, or dietary restrictions, discuss your nutrition needs with your healthcare professional.",
+    "source_name": "MedlinePlus",
+    "source_url": "https://medlineplus.gov/pregnancyandnutrition.html",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "nutrition",
+    "question": "Can I drink coffee while pregnant?",
+    "alternate_questions": [
+      "Pwede bala magkape ang buntis?",
+      "Is caffeine safe during pregnancy?",
+      "How much coffee is okay while pregnant?",
+      "Kape habang buntis"
+    ],
+    "answer": "Caffeine intake during pregnancy varies from person to person. Some guidelines suggest limiting caffeine to reduce the chance of problems, especially in later pregnancy. If you are unsure, ask your healthcare professional what amount is appropriate for you, and consider other fluids such as water and decaffeinated drinks.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "nutrition",
+    "question": "Which vitamins or supplements should I take during pregnancy?",
+    "alternate_questions": [
+      "What vitamins should I take while pregnant?",
+      "Should I take prenatal vitamins?",
+      "Ano ang vitamins para sa buntis?",
+      "Prenatal vitamins and supplements"
+    ],
+    "answer": "Prenatal vitamins and supplements can help support nutritional needs during pregnancy, but the right choice depends on your health, diet, and any medical advice you have. Do not start or stop medicines or supplements without checking with a healthcare professional. Your care team can guide you on iron, folic acid, and other needs specific to your pregnancy.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "nutrition",
+    "question": "Can I take medicines during pregnancy?",
+    "alternate_questions": [
+      "Pwede ba mag-inom ng gamot habang buntis?",
+      "Should I stop my medication during pregnancy?",
+      "What medicines are safe in pregnancy?",
+      "Gumagamit ako ng gamot habang buntis"
+    ],
+    "answer": "Do not start or stop prescribed medicine based only on general information. Pregnancy-specific advice depends on the medicine, the dose, and your health history. Always check with the healthcare professional who prescribed it or your maternity-care team before changing any medication routine.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "nutrition",
+    "question": "Is exercise safe during pregnancy?",
+    "alternate_questions": [
+      "Pwede ba mag-exercise habang buntis?",
+      "What exercise is okay during pregnancy?",
+      "Physical activity and pregnancy",
+      "Normal ba ang pag-ehersisyo sa buntis"
+    ],
+    "answer": "Many pregnant people can safely continue moderate physical activity, especially when they are already active and their healthcare professional approves it. The type and level of exercise should match your health, symptoms, and stage of pregnancy. Stop exercise and seek care if you have pain, bleeding, dizziness, or shortness of breath.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "nutrition",
+    "question": "How much rest and hydration do I need during pregnancy?",
+    "alternate_questions": [
+      "How much water should I drink while pregnant?",
+      "Rest and hydration during pregnancy",
+      "Bakit importante ang tubig at pahulay sa buntis?",
+      "I am dehydrated and tired while pregnant"
+    ],
+    "answer": "Rest and adequate hydration are important during pregnancy because dehydration and poor sleep can worsen fatigue and other discomforts. Keep fluids available, drink regularly, and aim for a routine that supports your energy and recovery. If you have severe vomiting, dizziness, or difficulty keeping fluids down, discuss this with a healthcare professional promptly.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "prenatal",
+    "question": "When should I start prenatal checkups?",
+    "alternate_questions": [
+      "San-o dapat magpa-checkup kon buntis?",
+      "When should prenatal visits begin?",
+      "How soon should I see a doctor after pregnancy is confirmed?",
+      "Ano ang tamang oras para mag prenatal checkup"
+    ],
+    "answer": "Prenatal care should usually begin as soon as pregnancy is confirmed or as soon as possible after that. Early visits help your care team review your health, discuss screening, and plan follow-up care. If you have missed appointments or have ongoing concerns, contact your healthcare provider to schedule an assessment.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "prenatal",
+    "question": "Why are prenatal checkups important?",
+    "alternate_questions": [
+      "Why do I need regular prenatal care?",
+      "Why are checkups important during pregnancy?",
+      "Importance of prenatal checkups",
+      "Bakit importante ang prenatal checkup"
+    ],
+    "answer": "Prenatal checkups help track your health and your pregnancy over time. They also provide an opportunity to discuss symptoms, tests, nutrition, medications, and questions about your care. Regular visits can help identify concerns early and support a safer pregnancy experience.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "prenatal",
+    "question": "What should I ask my healthcare professional at a prenatal visit?",
+    "alternate_questions": [
+      "What questions should I ask a doctor during pregnancy?",
+      "Ano ang dapat itanong sa healthcare provider?",
+      "What topics should I bring up at my prenatal appointment?",
+      "Questions to ask during prenatal checkup"
+    ],
+    "answer": "It is helpful to bring a list of symptoms, medicines, questions about nutrition, and any concerns about your wellbeing or pregnancy. You can also ask when to seek additional care, what tests are advised, and what warning signs should prompt urgent evaluation. Your healthcare team can tailor advice to your personal situation.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "prenatal",
+    "question": "How is pregnancy health monitored?",
+    "alternate_questions": [
+      "How do they monitor a pregnancy?",
+      "What happens during a prenatal checkup?",
+      "How is my health followed during pregnancy?",
+      "Pregnancy monitoring and general health checks"
+    ],
+    "answer": "Pregnancy health is commonly monitored through prenatal visits, questions about symptoms, physical checkups, and recommended screening or tests. The exact schedule and advice vary by individual needs and local guidelines. Your provider may also review blood pressure, weight, nutrition, symptoms, movement, and overall wellbeing.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "development",
+    "question": "When might I first feel fetal movements?",
+    "alternate_questions": [
+      "San-o ko mabatyagan ang lihok sang baby?",
+      "When do babies usually move in the womb?",
+      "When can I feel the baby kick?",
+      "Fetal movements in pregnancy"
+    ],
+    "answer": "Many people first notice fetal movement at a later stage of pregnancy, often around the second trimester, although the timing varies. If you have been advised to monitor movement and notice a change in the usual pattern, contact your healthcare professional. Movement patterns can vary, so it is best to ask your care team how they advise you to monitor this in your situation.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "development",
+    "question": "What are the general stages of pregnancy?",
+    "alternate_questions": [
+      "What are the stages of pregnancy?",
+      "Stages of fetal development",
+      "Ano ang mga stage ng pagbubuntis?",
+      "Pregnancy progression and trimester stages"
+    ],
+    "answer": "Pregnancy is commonly described in trimesters, each with different physical and developmental changes. These stages are general educational guides and do not determine every individual experience. Your healthcare professional can explain how your pregnancy is progressing and what the current stage means for your care.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "development",
+    "question": "How does the body change during pregnancy?",
+    "alternate_questions": [
+      "What body changes happen during pregnancy?",
+      "Why does my body feel different while pregnant?",
+      "Mga pagbabago sa katawan habang buntis",
+      "Changes in the pregnant body"
+    ],
+    "answer": "Changes in the body during pregnancy can include hormonal shifts, breast changes, fatigue, appetite changes, and changes in body shape. These changes vary a lot between pregnancies and people. Discuss new or worrying symptoms with your healthcare team so they can help you interpret them in the context of your own pregnancy.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "development",
+    "question": "Why is monitoring fetal development important?",
+    "alternate_questions": [
+      "Why monitor fetal growth?",
+      "Why do healthcare workers look at fetal development?",
+      "How does monitoring development help?",
+      "Monitoring pregnancy progress and the baby"
+    ],
+    "answer": "Monitoring fetal development and pregnancy progress helps care teams identify whether the pregnancy is progressing as expected and whether any advice or follow-up is needed. It is not used to diagnose a person without context. Your provider can explain what a checkup or scan means for you personally.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "concerns",
+    "question": "Is mild swelling during pregnancy normal?",
+    "alternate_questions": [
+      "Normal lang ba nga may paghubag sa paa?",
+      "Mild swelling in pregnancy",
+      "Is swelling normal while pregnant?",
+      "Panghupog sa mga paa habang buntis"
+    ],
+    "answer": "Mild swelling can happen during pregnancy, especially later in the day or toward the end of pregnancy. It is not always dangerous, but sudden or severe swelling, especially with pain, headache, or high blood pressure symptoms, should be assessed promptly. If you are unsure, ask your healthcare professional.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "concerns",
+    "question": "Are abdominal discomforts common during pregnancy?",
+    "alternate_questions": [
+      "Normal lang ba ang sakit sa tiyan habang buntis?",
+      "Is some abdominal pain normal in pregnancy?",
+      "Mild belly discomfort during pregnancy",
+      "I have stomach discomfort while pregnant"
+    ],
+    "answer": "Some abdominal discomforts are common as the uterus and ligaments change, but symptoms can vary from person to person. If pain is severe, persistent, comes with bleeding, fever, dizziness, or vomiting, contact your healthcare professional or seek urgent care. Do not rely on general information alone when the pain feels significant.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "concerns",
+    "question": "Why do I have trouble sleeping during pregnancy?",
+    "alternate_questions": [
+      "Why can I not sleep while pregnant?",
+      "Sleep problems during pregnancy",
+      "Bakit hirap ako matulog habang buntis?",
+      "I feel restless at night during pregnancy"
+    ],
+    "answer": "Pregnancy-related sleep issues can be caused by hormonal changes, discomfort, frequent urination, anxiety, or leg discomfort. Practical ways to support sleep include rest routines, hydration earlier in the day, and discussing ongoing sleep problems with your healthcare team. If you are also dealing with severe symptoms, seek medical advice.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "concerns",
+    "question": "Can my appetite change during pregnancy?",
+    "alternate_questions": [
+      "Why do I have food cravings during pregnancy?",
+      "Are appetite changes normal?",
+      "Bakit nagbabago ang gana ko sa pagkain?",
+      "I feel full or have no appetite while pregnant"
+    ],
+    "answer": "Changes in appetite are common in pregnancy and can vary over time. Some people feel hungrier, while others struggle with nausea or early fullness. A balanced eating plan, small frequent meals, and keeping your healthcare team informed can help. If you cannot keep fluids down or are losing weight, contact a healthcare professional.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "concerns",
+    "question": "Is it normal to worry during pregnancy?",
+    "alternate_questions": [
+      "I am anxious and worried during pregnancy",
+      "Normal ba ang mag-alala habang buntis?",
+      "Stress and pregnancy concerns",
+      "I feel overwhelmed during pregnancy"
+    ],
+    "answer": "Worrying about pregnancy, body changes, and the baby is common. It is important to reach out to someone you trust and speak with your healthcare professional if the worry feels overwhelming or it is affecting your daily life. General information can be helpful, but personal concerns should be discussed with a qualified professional.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": false,
+    "is_published": true
+  },
+  {
+    "category": "warning-signs",
+    "question": "What should I do if I have vaginal bleeding during pregnancy?",
+    "alternate_questions": [
+      "Normal lang bala nga may dugo nga nagaguwa bisan buntis ko?",
+      "I am bleeding while pregnant",
+      "Vaginal bleeding in pregnancy",
+      "May dugo nga nagagasang habang buntis"
+    ],
+    "answer": "Any bleeding during pregnancy should be assessed by a healthcare professional, because the cause can vary. If bleeding is heavy, accompanied by severe pain, dizziness, fainting, or signs of shock, seek urgent medical help immediately or contact emergency services. Do not delay urgent evaluation while waiting for an online answer.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": true,
+    "is_published": true
+  },
+  {
+    "category": "warning-signs",
+    "question": "What should I do if I have severe abdominal pain during pregnancy?",
+    "alternate_questions": [
+      "Matinding pananakit ng tiyan habang buntis",
+      "Severe belly pain while pregnant",
+      "Grabe ang akon sakit tiyan",
+      "Severe abdominal pain and pregnancy"
+    ],
+    "answer": "Severe or worsening abdominal pain in pregnancy should be treated as a potential emergency because causes can be serious and may need prompt assessment. If the pain is severe, persistent, associated with bleeding, fever, fainting, or difficulty breathing, contact emergency services or go to the nearest urgent care facility without delay.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": true,
+    "is_published": true
+  },
+  {
+    "category": "warning-signs",
+    "question": "What if I have a severe headache with vision changes during pregnancy?",
+    "alternate_questions": [
+      "Grabe ang akon sakit ulo kag daw malabo akon panulok",
+      "Severe headache with vision changes while pregnant",
+      "Headache and blurry vision during pregnancy",
+      "Matinding sakit ng ulo at pagbabago sa paningin"
+    ],
+    "answer": "A severe headache with visual changes, such as blurred vision or flashes, can be serious during pregnancy and should be assessed urgently. If you have severe headache with vision changes, chest pain, confusion, or seizures, seek emergency care immediately. Do not wait for a chatbot response in a situation that may need fast assessment.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": true,
+    "is_published": true
+  },
+  {
+    "category": "warning-signs",
+    "question": "What if I have difficulty breathing during pregnancy?",
+    "alternate_questions": [
+      "Budlay ginhawa ko bisan wala ko naga-obra",
+      "Difficulty breathing while pregnant",
+      "Shortness of breath in pregnancy",
+      "Hirap huminga habang buntis"
+    ],
+    "answer": "Difficulty breathing can be serious and should not be dismissed. If you are having severe shortness of breath, chest pain, fainting, or blue lips, contact emergency services or seek urgent medical attention immediately. A healthcare professional can help determine the cause and the safest next steps.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": true,
+    "is_published": true
+  },
+  {
+    "category": "warning-signs",
+    "question": "What if I have a fever during pregnancy?",
+    "alternate_questions": [
+      "May lagnat ako habang buntis",
+      "Fever during pregnancy",
+      "Is fever while pregnant dangerous?",
+      "High temperature during pregnancy"
+    ],
+    "answer": "A fever of 100.4°F (38°C) or higher is an urgent maternal warning sign. Seek medical care immediately if you experience it. If you have fever with severe pain, bleeding, severe weakness, or difficulty breathing, seek urgent care. A healthcare professional can advise what evaluation is needed for your situation.",
+    "source_name": "Centers for Disease Control and Prevention",
+    "source_url": "https://www.cdc.gov/hearher/maternal-warning-signs/index.html",
+    "is_warning_sign": true,
+    "is_published": true
+  },
+  {
+    "category": "warning-signs",
+    "question": "What if my usual fetal movements have decreased or stopped?",
+    "alternate_questions": [
+      "Bumaba ang galaw ng sanggol",
+      "Decreased fetal movement during pregnancy",
+      "Baby stopped moving",
+      "My baby is moving less than usual"
+    ],
+    "answer": "A noticeable decrease or stop in a baby's usual movements is a reason to contact a healthcare professional promptly, especially if you have been told to monitor movement. If you are worried, do not wait for a general answer online. Get medical advice as soon as possible, and if the concern is severe or you are unsure, seek urgent assessment.",
+    "source_name": "World Health Organization",
+    "source_url": "https://www.who.int/health-topics/pregnancy",
+    "is_warning_sign": true,
+    "is_published": true
+  }
+]

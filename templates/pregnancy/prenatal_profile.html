@@ -1,47 +1,262 @@
 {% extends "pregnancy/base.html" %}
 {% load i18n %}
-{% block title %}Pregnancy toolkit{% endblock %}
+{% block title %}{% if onboarding_complete %}My Profile{% else %}Complete Your Profile{% endif %}{% endblock %}
 {% block content %}
-<div class="page-heading">
-  <div><span class="eyebrow">{% trans "Private pregnancy toolkit" %}</span><h1>{% trans "Pregnancy profile" %}</h1><p>{% trans "Optional dates and appointments saved only to your account." %}</p></div>
-</div>
-<div class="profile-layout">
-  <section class="profile-card">
-    <h2>{% trans "Pregnancy details" %}</h2>
-    <p>{% trans "Conception date is an estimate. Pregnancy dating can differ; confirm dates with your healthcare professional." %}</p>
-    <form method="post" class="profile-form">
-      {% csrf_token %}<input type="hidden" name="save_profile" value="1">
-      <div class="form-field"><label for="{{ form.estimated_conception_date.id_for_label }}">Estimated conception date</label>{{ form.estimated_conception_date }}{% for error in form.estimated_conception_date.errors %}<span class="field-error">{{ error }}</span>{% endfor %}</div>
-      <div class="form-field"><label for="{{ form.blood_type.id_for_label }}">Blood type (optional)</label>{{ form.blood_type }}{% for error in form.blood_type.errors %}<span class="field-error">{{ error }}</span>{% endfor %}</div>
-      <button class="button button-pink" type="submit">{% trans "Save pregnancy details" %}</button>
-    </form>
-    {% if profile.estimated_conception_date %}
-    <div class="pregnancy-summary">
-      <h3>{% trans "Your estimate" %}</h3>
-      <p>{% trans "Estimated due date:" %} <strong>{{ profile.estimated_due_date|date:"F j, Y" }}</strong></p>
-      <p>{% trans "About week" %} <strong>{{ profile.gestational_week }}</strong> · {% trans "trimester" %} <strong>{{ profile.trimester }}</strong></p>
-      <small>{% trans "This calculator is an estimate, not a substitute for clinical dating." %}</small>
+<div class="my-profile-page{% if not onboarding_complete %} is-profile-onboarding{% endif %}">
+  <section class="my-profile-hero">
+    <div class="my-profile-hero-icon" aria-hidden="true">
+      <i class="fa-regular fa-user"></i>
     </div>
-    {% endif %}
-  </section>
-  <section class="profile-card">
-    <h2>{% trans "Appointments" %}</h2>
-    <p>{% trans "Save upcoming visits as a reminder in this app. No external notifications are sent." %}</p>
-    <form method="post" class="profile-form">
-      {% csrf_token %}<input type="hidden" name="add_appointment" value="1">
-      {% for field in appointment_form %}
-      <div class="form-field"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% for error in field.errors %}<span class="field-error">{{ error }}</span>{% endfor %}</div>
-      {% endfor %}
-      <button class="button button-soft" type="submit">{% trans "Save appointment" %}</button>
-    </form>
-    <div class="appointment-list">
-      {% for appointment in appointments %}
-      <article class="appointment-item">
-        <div><strong>{{ appointment.title }}</strong><time>{{ appointment.scheduled_at|date:"M j, Y · g:i A" }}</time>{% if appointment.notes %}<p>{{ appointment.notes }}</p>{% endif %}</div>
-        <form method="post" action="{% url 'appointment_delete' appointment.pk %}">{% csrf_token %}<button type="submit" class="text-button danger-action">{% trans "Remove" %}</button></form>
-      </article>
-      {% empty %}<p>{% trans "No upcoming appointments saved." %}</p>{% endfor %}
+    <div class="my-profile-hero-copy">
+      <span class="my-profile-eyebrow">{% if onboarding_complete %}{% trans "My Profile" %}{% else %}{% trans "Complete your profile" %}{% endif %}</span>
+      <h1>{% if onboarding_complete %}{% trans "My Profile" %}{% else %}{% trans "Complete Your Profile" %}{% endif %}</h1>
+      <p>{% if onboarding_complete %}{% trans "Manage your personal information and pregnancy details." %}{% else %}{% trans "Please complete the required fields so PregnaBot can open your personal dashboard." %}{% endif %}</p>
+    </div>
+    <div class="my-profile-hero-art" aria-hidden="true">
+      <span class="art-orbit orbit-one"></span><span class="art-orbit orbit-two"></span>
+      <span class="art-heart heart-one"><i class="fa-solid fa-heart"></i></span>
+      <span class="art-heart heart-two"><i class="fa-solid fa-star"></i></span>
+      <svg viewBox="0 0 270 250" focusable="false">
+        <path class="art-hair" d="M115 30c-38 0-66 27-66 70v50c0 39 27 72 68 72h75c16-23 18-64 12-99-8-51-38-93-89-93Z"/>
+        <path class="art-body" d="M106 78c-16 8-23 27-22 49 1 14-4 26-11 36-14 20-15 38-12 60h157c-2-38-18-67-45-78-13-5-19-13-20-25l-1-20-46-22Z"/>
+        <path class="art-face" d="M105 54c-10 20-13 47-7 68 5 18 19 29 36 29 20 0 38-19 38-43V76c0-22-14-37-35-37-14 0-25 5-32 15Z"/>
+        <path class="art-hair-front" d="M99 91c-9-31 5-61 35-66 22-4 47 10 50 32-14-8-23-21-31-26 2 18-5 29-18 39-9 8-23 15-36 21Z"/>
+        <path class="art-bump" d="M133 144c-25 1-43 20-43 44 0 19 15 34 35 34 22 0 40-15 40-35 0-24-13-43-32-43Z"/>
+        <path class="art-dress" d="M79 158c13-12 24-18 38-20 8 17 21 22 34 22 10 0 18-4 26-11 18 15 31 39 34 74H64c-1-26 3-48 15-65Z"/>
+        <path class="art-sleeve" d="M94 139c-18 7-34 21-42 42-5 13-7 31-4 42h25c-2-24 4-45 22-62 5-5 11-9 18-12l-19-10Z"/>
+        <path class="art-hand" d="M115 182c-4 18 5 37 20 43 9 4 22 1 27-8 4-8-1-17-8-23-11-10-25-15-39-12Z"/>
+        <path class="art-eye" d="M138 105c3 0 5 2 5 5s-2 5-5 5-5-2-5-5 2-5 5-5Z"/>
+        <path class="art-smile" d="M148 124c6 4 12 3 16-2"/>
+      </svg>
     </div>
   </section>
+
+  <details class="my-profile-editor"{% if not onboarding_complete or form.errors %} open{% endif %}>
+    <summary class="my-profile-edit-toggle">
+      <i class="fa-solid fa-pen" aria-hidden="true"></i>
+      <span class="my-profile-edit-label">{% trans "Edit Profile" %}</span>
+      <span class="my-profile-close-label">{% trans "Close Editor" %}</span>
+    </summary>
+    <form method="post" class="onboarding-form my-profile-form" id="pregnancy-record-form" novalidate>
+      {% csrf_token %}
+      <input type="hidden" name="save_profile" value="1">
+      <section class="profile-card my-profile-edit-card" aria-labelledby="edit-profile-heading">
+        <div class="profile-card-header">
+          <div class="profile-card-icon icon-blue" aria-hidden="true"><i class="fa-solid fa-pen-to-square"></i></div>
+          <div>
+            <h2 id="edit-profile-heading">{% trans "Update Your Information" %}</h2>
+            <p>{% trans "Keep your account and pregnancy details up to date." %}</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }} <span class="required-flag">{% trans "required" %}</span></label>
+            {{ form.first_name }}
+            {% for error in form.first_name.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+          </div>
+          <div class="form-field">
+            <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }} <span class="required-flag">{% trans "required" %}</span></label>
+            {{ form.last_name }}
+            {% for error in form.last_name.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+          </div>
+          <div class="form-field">
+            <label for="{{ form.email.id_for_label }}">{{ form.email.label }} <span class="required-flag">{% trans "required" %}</span></label>
+            {{ form.email }}
+            {% for error in form.email.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+          </div>
+          <div class="form-field">
+            <label for="{{ form.date_of_birth.id_for_label }}">{{ form.date_of_birth.label }} <span class="required-flag">{% trans "required" %}</span></label>
+            {{ form.date_of_birth }}
+            {% for error in form.date_of_birth.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+          </div>
+          <div class="form-field">
+            <label for="{{ form.pregnancy_status.id_for_label }}">{{ form.pregnancy_status.label }} <span class="required-flag">{% trans "required" %}</span></label>
+            {{ form.pregnancy_status }}
+            {% for error in form.pregnancy_status.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+          </div>
+          <div class="form-field">
+            <label for="{{ form.estimated_conception_date.id_for_label }}">{{ form.estimated_conception_date.label }}{% if form.pregnancy_status.value == 'pregnant' %} <span class="required-flag">{% trans "required" %}</span>{% else %} <span class="optional-flag">{% trans "only for a current pregnancy" %}</span>{% endif %}</label>
+            {{ form.estimated_conception_date }}
+            {% for error in form.estimated_conception_date.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+          </div>
+          <div class="form-field">
+            <label for="{{ form.blood_type.id_for_label }}">{{ form.blood_type.label }} <span class="optional-flag">{% trans "optional" %}</span></label>
+            {{ form.blood_type }}
+            {% for error in form.blood_type.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+          </div>
+          <div class="form-field">
+            <label for="{{ form.phone_number.id_for_label }}">{{ form.phone_number.label }} <span class="optional-flag">{% trans "optional" %}</span></label>
+            {{ form.phone_number }}
+            {% for error in form.phone_number.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+          </div>
+          <div class="form-field">
+            <label for="{{ form.healthcare_provider.id_for_label }}">{{ form.healthcare_provider.label }} <span class="optional-flag">{% trans "optional" %}</span></label>
+            {{ form.healthcare_provider }}
+            {% for error in form.healthcare_provider.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+          </div>
+          <div class="form-field">
+            <label for="{{ form.city.id_for_label }}">{{ form.city.label }} <span class="optional-flag">{% trans "optional" %}</span></label>
+            {{ form.city }}
+            {% for error in form.city.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+          </div>
+          <div class="form-field">
+            <label for="{{ form.province.id_for_label }}">{{ form.province.label }} <span class="optional-flag">{% trans "optional" %}</span></label>
+            {{ form.province }}
+            {% for error in form.province.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+          </div>
+          <div class="form-field">
+            <label for="{{ form.postal_code.id_for_label }}">{{ form.postal_code.label }} <span class="optional-flag">{% trans "optional" %}</span></label>
+            {{ form.postal_code }}
+            {% for error in form.postal_code.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+          </div>
+          <div class="form-field">
+            <label for="{{ form.emergency_contact_name.id_for_label }}">{{ form.emergency_contact_name.label }} <span class="optional-flag">{% trans "optional" %}</span></label>
+            {{ form.emergency_contact_name }}
+            {% for error in form.emergency_contact_name.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+          </div>
+          <div class="form-field">
+            <label for="{{ form.emergency_contact_relationship.id_for_label }}">{{ form.emergency_contact_relationship.label }} <span class="optional-flag">{% trans "optional" %}</span></label>
+            {{ form.emergency_contact_relationship }}
+            {% for error in form.emergency_contact_relationship.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+          </div>
+          <div class="form-field">
+            <label for="{{ form.emergency_contact_number.id_for_label }}">{{ form.emergency_contact_number.label }} <span class="optional-flag">{% trans "optional" %}</span></label>
+            {{ form.emergency_contact_number }}
+            {% for error in form.emergency_contact_number.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+          </div>
+        </div>
+        {% if not onboarding_complete %}
+        <section class="profile-card my-profile-policy" aria-labelledby="profile-policy-heading">
+          <div class="profile-card-header">
+            <div class="profile-card-icon icon-mint" aria-hidden="true"><i class="fa-solid fa-shield-heart"></i></div>
+            <h2 id="profile-policy-heading">{% trans "Privacy & Data Policy" %}</h2>
+          </div>
+          <div class="my-profile-policy-copy">
+            <p>{% trans "This form collects your name, email address, date of birth, pregnancy status and (when relevant) estimated conception date. You may also provide blood type, phone number, healthcare provider, city, province, postal code, and emergency contact details." %}</p>
+            <p>{% trans "PregnaBot asks for these details to set up and maintain your account profile and show pregnancy information in the application. Your pregnancy status and estimated conception date support the in-app gestational week and estimated due date calculations." %}</p>
+            <p>{% trans "Your pregnancy profile is shown and edited through your signed-in account and is not registered in Django admin. Saved conversations and their associated messages are linked to your account; authorized staff administrators with Django admin access may view them there." %}</p>
+            <p>{% trans "The chatbot uses the provider configured by the application. When OpenAI is selected, your questions, relevant information retrieved from the pregnancy library, and relevant earlier conversation context for follow-up questions may be sent to OpenAI for response generation. When Ollama is selected, this information is sent to the configured Ollama endpoint, which may be local or remote. The chatbot does not silently switch providers if the selected provider fails." %}</p>
+            <p>{% trans "This profile form does not collect medical history, diagnoses, medication lists, previous pregnancy history, or free-text notes. PregnaBot provides general pregnancy information and does not replace professional medical advice, diagnosis, or treatment." %}</p>
+            <p>{% trans "Self-service account deletion is not available in this version, and the Settings page says information is not deleted automatically. This version does not store a separate record of your policy acknowledgement." %}</p>
+          </div>
+          <div class="my-profile-policy-acknowledgement">
+            <label for="{{ form.privacy_acknowledgement.id_for_label }}">
+              {{ form.privacy_acknowledgement }}
+              <span>{{ form.privacy_acknowledgement.label }}</span>
+            </label>
+            {% for error in form.privacy_acknowledgement.errors %}<span class="field-error" role="alert">{{ error }}</span>{% endfor %}
+          </div>
+        </section>
+        {% endif %}
+        <div class="my-profile-form-footer">
+          <span>{% trans "Required: name, email, date of birth, and pregnancy status. Estimated conception date is required for a current pregnancy." %}</span>
+          <button class="button button-pink" type="submit"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> {% trans "Save Changes" %}</button>
+        </div>
+      </section>
+    </form>
+  </details>
+
+  {% if onboarding_complete %}
+  <div class="my-profile-grid" id="profile-overview">
+    <section class="profile-card my-profile-card" aria-labelledby="personal-info-heading">
+      <div class="profile-card-header">
+        <div class="profile-card-icon icon-rose" aria-hidden="true"><i class="fa-regular fa-user"></i></div>
+        <h2 id="personal-info-heading">{% trans "Personal Information" %}</h2>
+      </div>
+      <div class="profile-card-grid">
+        <div class="profile-data-row">
+          <span class="profile-data-label"><i class="fa-regular fa-user" aria-hidden="true"></i> {% trans "Full Name" %}</span>
+          <span class="profile-data-value">{{ display_name|default:request.user.get_full_name|default:request.user.username }}</span>
+        </div>
+        <div class="profile-data-row">
+          <span class="profile-data-label"><i class="fa-regular fa-calendar" aria-hidden="true"></i> {% trans "Date of Birth" %}</span>
+          <span class="profile-data-value">{% if profile.date_of_birth %}{{ profile.date_of_birth|date:"F j, Y" }}{% else %}{% trans "Not set" %}{% endif %}</span>
+        </div>
+        <div class="profile-data-row">
+          <span class="profile-data-label"><i class="fa-regular fa-envelope" aria-hidden="true"></i> {% trans "Email Address" %}</span>
+          <span class="profile-data-value">{{ request.user.email|default:"—" }}</span>
+        </div>
+        <div class="profile-data-row">
+          <span class="profile-data-label"><i class="fa-solid fa-phone" aria-hidden="true"></i> {% trans "Phone Number" %}</span>
+          <span class="profile-data-value">{% if profile.phone_number %}{{ profile.phone_number }}{% else %}{% trans "Not provided" %}{% endif %}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="profile-card my-profile-card" aria-labelledby="pregnancy-details-heading">
+      <div class="profile-card-header">
+        <div class="profile-card-icon icon-lilac" aria-hidden="true"><i class="fa-solid fa-baby-carriage"></i></div>
+        <h2 id="pregnancy-details-heading">{% trans "Pregnancy Details" %}</h2>
+      </div>
+      <div class="profile-card-grid">
+        <div class="profile-data-row">
+          <span class="profile-data-label"><i class="fa-regular fa-calendar-check" aria-hidden="true"></i> {% trans "Pregnancy Status" %}</span>
+          <span class="profile-data-value"><span class="badge">{% if profile.pregnancy_status %}{{ profile.get_pregnancy_status_display }}{% else %}{% trans "Not set" %}{% endif %}</span></span>
+        </div>
+        {% if profile.pregnancy_status == "pregnant" and profile.estimated_conception_date and profile.estimated_conception_date <= today %}
+        <div class="profile-data-row">
+          <span class="profile-data-label"><i class="fa-solid fa-seedling" aria-hidden="true"></i> {% trans "Current Week" %}</span>
+          <span class="profile-data-value">{{ profile.gestational_week }} {% trans "weeks" %}</span>
+        </div>
+        <div class="profile-data-row">
+          <span class="profile-data-label"><i class="fa-regular fa-heart" aria-hidden="true"></i> {% trans "Expected Due Date" %}</span>
+          <span class="profile-data-value">{{ profile.estimated_due_date|date:"F j, Y" }}</span>
+        </div>
+        {% endif %}
+        <div class="profile-data-row">
+          <span class="profile-data-label"><i class="fa-solid fa-stethoscope" aria-hidden="true"></i> {% trans "Healthcare Provider" %}</span>
+          <span class="profile-data-value">{% if profile.healthcare_provider %}{{ profile.healthcare_provider }}{% else %}{% trans "Not provided" %}{% endif %}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="profile-card my-profile-card" aria-labelledby="address-info-heading">
+      <div class="profile-card-header">
+        <div class="profile-card-icon icon-mint" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></div>
+        <h2 id="address-info-heading">{% trans "Address Information" %}</h2>
+      </div>
+      <div class="profile-card-grid">
+        <div class="profile-data-row">
+          <span class="profile-data-label"><i class="fa-solid fa-city" aria-hidden="true"></i> {% trans "City" %}</span>
+          <span class="profile-data-value">{% if profile.city %}{{ profile.city }}{% else %}{% trans "Not provided" %}{% endif %}</span>
+        </div>
+        <div class="profile-data-row">
+          <span class="profile-data-label"><i class="fa-solid fa-map" aria-hidden="true"></i> {% trans "Province" %}</span>
+          <span class="profile-data-value">{% if profile.province %}{{ profile.province }}{% else %}{% trans "Not provided" %}{% endif %}</span>
+        </div>
+        <div class="profile-data-row">
+          <span class="profile-data-label"><i class="fa-solid fa-envelopes-bulk" aria-hidden="true"></i> {% trans "Postal Code" %}</span>
+          <span class="profile-data-value">{% if profile.postal_code %}{{ profile.postal_code }}{% else %}{% trans "Not provided" %}{% endif %}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="profile-card my-profile-card" aria-labelledby="emergency-contact-heading">
+      <div class="profile-card-header">
+        <div class="profile-card-icon icon-rose" aria-hidden="true"><i class="fa-solid fa-phone-volume"></i></div>
+        <h2 id="emergency-contact-heading">{% trans "Emergency Contact" %}</h2>
+      </div>
+      <div class="profile-card-grid">
+        <div class="profile-data-row">
+          <span class="profile-data-label"><i class="fa-regular fa-user" aria-hidden="true"></i> {% trans "Contact Name" %}</span>
+          <span class="profile-data-value">{% if profile.emergency_contact_name %}{{ profile.emergency_contact_name }}{% else %}{% trans "Not provided" %}{% endif %}</span>
+        </div>
+        <div class="profile-data-row">
+          <span class="profile-data-label"><i class="fa-regular fa-heart" aria-hidden="true"></i> {% trans "Relationship" %}</span>
+          <span class="profile-data-value">{% if profile.emergency_contact_relationship %}{{ profile.emergency_contact_relationship }}{% else %}{% trans "Not provided" %}{% endif %}</span>
+        </div>
+        <div class="profile-data-row">
+          <span class="profile-data-label"><i class="fa-solid fa-phone" aria-hidden="true"></i> {% trans "Contact Number" %}</span>
+          <span class="profile-data-value">{% if profile.emergency_contact_number %}{{ profile.emergency_contact_number }}{% else %}{% trans "Not provided" %}{% endif %}</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="my-profile-privacy-note">
+    <i class="fa-solid fa-shield-heart" aria-hidden="true"></i>
+    <span>{% trans "Your profile details are saved to your PregnaBot account and may be accessed by staff administrators for support and maintenance." %}</span>
+  </div>
+  {% endif %}
 </div>
 {% endblock %}

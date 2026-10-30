@@ -5,7 +5,7 @@
 <div class="chat-page">
   <div class="chat-heading">
     <div><span class="eyebrow">{% trans "A thoughtful place to ask" %}</span><h1>{% if conversation %}{{ conversation.title }}{% else %}{% trans "Chat with PregnaBot" %}{% endif %}</h1><p>{% trans "Explore answers from the pregnancy information library." %}</p></div>
-    <a class="button button-soft" href="{% url 'chatbot' %}"><i class="fa-solid fa-plus" aria-hidden="true"></i> {% trans "New chat" %}</a>
+    <a class="button button-soft" href="{% if request.user.is_authenticated %}{% url 'chatbot' %}{% else %}{% url 'chat_new' %}{% endif %}"><i class="fa-solid fa-plus" aria-hidden="true"></i> {% trans "New chat" %}</a>
   </div>
   <div class="chat-workspace">
     <section class="chat-panel" aria-label="Chat conversation">
@@ -34,15 +34,17 @@
           {% if message.role != 'user' %}<span class="message-avatar"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i></span>{% endif %}
           <div class="message-bubble">
             <span class="message-author">{% if message.role == 'user' %}{% trans "You" %}{% else %}PregnaBot{% endif %}{% if message.answer_title %} · {{ message.answer_title }}{% endif %}</span>
-            <p>{{ message.content|linebreaksbr }}</p>
+            <p>{{ message.rendered_content }}</p>
             {% if message.source_name %}<p class="message-source">Source: {% if message.source_url %}<a href="{{ message.source_url }}" target="_blank" rel="noopener noreferrer">{{ message.source_name }}</a>{% else %}{{ message.source_name }}{% endif %}</p>{% endif %}
             <time datetime="{{ message.created_at|date:'c' }}">{{ message.created_at|date:"M j, g:i A" }}</time>
             {% if message.role == 'assistant' %}
+            {% if request.user.is_authenticated %}
             <div class="message-feedback" aria-label="Was this answer helpful?">
               <span>{% trans "Helpful?" %}</span>
               <form method="post" action="{% url 'chat_feedback' message.pk %}">{% csrf_token %}<input type="hidden" name="helpful" value="true"><button type="submit" aria-label="Yes, helpful" {% if message.helpful is True %}disabled{% endif %}>👍</button></form>
               <form method="post" action="{% url 'chat_feedback' message.pk %}">{% csrf_token %}<input type="hidden" name="helpful" value="false"><button type="submit" aria-label="No, not helpful" {% if message.helpful is False %}disabled{% endif %}>👎</button></form>
             </div>
+            {% endif %}
             {% endif %}
           </div>
         </div>
@@ -55,7 +57,7 @@
         {% if message_page.has_next %}<a href="?page={{ message_page.next_page_number }}">Newer messages</a>{% endif %}
       </nav>
       {% endif %}
-      <form class="chat-composer" method="post">
+      <form class="chat-composer" method="post" action="{% if conversation %}{% url 'chat_conversation' conversation.pk %}{% else %}{% url 'chatbot' %}{% endif %}">
         {% csrf_token %}
         <label class="visually-hidden" for="chat-question">Your question</label>
         <textarea id="chat-question" name="question" rows="2" maxlength="4000" placeholder="{% trans 'Type your question here...' %}" required></textarea>
@@ -63,6 +65,7 @@
       </form>
     </section>
     <aside class="chat-side">
+      {% if request.user.is_authenticated %}
       <div class="chat-history-card">
         <div class="panel-heading"><h2>{% trans "Your recent chats" %}</h2><span>{{ recent_conversations|length }}</span></div>
         <div class="chat-history-list">
@@ -80,11 +83,19 @@
           </details>
           {% endif %}
           </div>
-          {% empty %}
-          <p class="chat-history-empty">Your saved conversations will appear here.</p>
-          {% endfor %}
+            {% empty %}
+            <p class="chat-history-empty">Your saved conversations will appear here.</p>
+            {% endfor %}
         </div>
       </div>
+      {% else %}
+      <div class="chat-history-card">
+        <div class="panel-heading"><h2>{% trans "Want to save your chats?" %}</h2></div>
+        <p>{% trans "Create an account to keep private chat history and access your personal pregnancy tools." %}</p>
+        <a class="button button-pink" href="{% url 'register' %}">{% trans "Create account" %}</a>
+        <a class="text-link" href="{% url 'login' %}">{% trans "Already have an account? Log in" %}</a>
+      </div>
+      {% endif %}
       <div class="chat-safety-card"><i class="fa-solid fa-shield-heart" aria-hidden="true"></i><h2>{% trans "A gentle reminder" %}</h2><p>{% trans "PregnaBot provides general educational information, not diagnosis or treatment." %}</p></div>
       <div class="chat-safety-card urgent-card"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i><h2>{% trans "Need urgent help?" %}</h2><p>{% trans "If you have severe symptoms or warning signs, contact your healthcare team or local emergency services now. Don't wait for an online reply." %}</p><a class="text-link" href="{% url 'pregnancy_information' %}?category=warning-signs">{% trans "Read warning signs" %} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
       <a class="chat-library-link" href="{% url 'pregnancy_information' %}"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span><strong>Browse the library</strong><small>Explore all pregnancy topics</small></span><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></a>

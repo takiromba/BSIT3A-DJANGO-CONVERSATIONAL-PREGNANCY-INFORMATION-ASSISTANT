@@ -1,6 +1,6 @@
 """Compatibility exports for callers using the former monolithic views module."""
 
-from .accounts import login_view, logout_view, profile, register_view
+from .accounts import login_view, logout_view, pregnancy_profile, profile, register_view
 from .chatbot import (
     chatbot,
     delete_conversation,
@@ -11,7 +11,8 @@ from .chatbot import (
 )
 from .content import faq_list, pregnancy_information, topic_detail
 from .dashboard import home
-from .prenatal import bookmarks, pregnancy_profile, toggle_bookmark
+from .preferences import settings_view
+from .prenatal import bookmarks, toggle_bookmark
 
 __all__ = [
     "bookmarks",
@@ -29,6 +30,7 @@ __all__ = [
     "profile",
     "register_view",
     "rename_conversation",
+    "settings_view",
     "toggle_bookmark",
     "topic_detail",
 ]

@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="{% static 'css/pregnabot.css' %}">
 </head>
 <body class="auth-page">
-  <main class="auth-card">
+  <main class="auth-card{% block auth_card_class %}{% endblock %}">
     <a class="brand auth-brand" href="{% url 'login' %}">
       <span class="brand-mark"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i></span>
       <span class="brand-copy"><strong>Pregna<span>Bot</span></strong><small>Your Pregnancy Guide</small></span>

@@ -1,0 +1,96 @@
+{% extends "pregnancy/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Conversation History" %}{% endblock %}
+
+{% block content %}
+<div class="conversation-history-page">
+  <header class="conversation-history-hero">
+    <span class="conversation-history-hero-icon" aria-hidden="true">
+      <i class="fa-regular fa-comments"></i>
+    </span>
+    <div class="conversation-history-hero-copy">
+      <span class="conversation-history-eyebrow">{% trans "Your conversations" %}</span>
+      <h1>{% trans "Conversation History" %}</h1>
+      <p>{% trans "View and manage your past conversations with PregnaBot." %}</p>
+    </div>
+    <span class="conversation-history-hero-accent" aria-hidden="true">
+      <i class="fa-solid fa-heart-pulse"></i>
+    </span>
+  </header>
+
+  <section class="conversation-history-toolbar" aria-label="{% trans 'Filter conversations' %}">
+    <nav class="conversation-history-filters" aria-label="{% trans 'Date filters' %}">
+      <a class="{% if not selected_filter %}is-active{% endif %}"
+         href="{% url 'conversation_history' %}{% if filter_query %}?{{ filter_query }}{% endif %}"
+         {% if not selected_filter %}aria-current="page"{% endif %}>{% trans "All Conversations" %}</a>
+      {% for filter_value, filter_label in date_filters.items %}
+      <a class="{% if selected_filter == filter_value %}is-active{% endif %}"
+         href="{% url 'conversation_history' %}?range={{ filter_value }}{% if filter_query %}&amp;{{ filter_query }}{% endif %}"
+         {% if selected_filter == filter_value %}aria-current="page"{% endif %}>{{ filter_label }}</a>
+      {% endfor %}
+    </nav>
+    <form class="conversation-history-search" method="get" action="{% url 'conversation_history' %}" role="search">
+      {% if selected_filter %}<input type="hidden" name="range" value="{{ selected_filter }}">{% endif %}
+      <label class="visually-hidden" for="conversation-history-query">{% trans "Search conversations" %}</label>
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <input id="conversation-history-query" type="search" name="q" value="{{ query }}" placeholder="{% trans 'Search conversations...' %}">
+      <button type="submit">{% trans "Search" %}</button>
+    </form>
+  </section>
+
+  <section class="conversation-history-list" aria-label="{% trans 'Saved conversations' %}">
+    {% for conversation in page_obj %}
+    <a class="conversation-history-card" href="{% url 'chat_conversation' conversation.pk %}">
+      <span class="conversation-history-card-icon" aria-hidden="true"><i class="fa-regular fa-message"></i></span>
+      <span class="conversation-history-card-copy">
+        <strong>{{ conversation.title|truncatechars:90 }}</strong>
+        <span class="conversation-history-preview">
+          {% if conversation.latest_user_message %}{{ conversation.latest_user_message|truncatechars:150 }}
+          {% elif conversation.latest_message %}{{ conversation.latest_message|truncatechars:150 }}
+          {% else %}{% trans "No messages in this conversation yet." %}{% endif %}
+        </span>
+      </span>
+      <time class="conversation-history-date" datetime="{{ conversation.updated_at|date:'c' }}">
+        <i class="fa-regular fa-clock" aria-hidden="true"></i>
+        {{ conversation.updated_at|date:"M j, Y · g:i A" }}
+      </time>
+      <i class="fa-solid fa-chevron-right conversation-history-chevron" aria-hidden="true"></i>
+    </a>
+    {% empty %}
+    <div class="conversation-history-empty">
+      <span class="conversation-history-empty-icon" aria-hidden="true"><i class="fa-regular fa-comments"></i></span>
+      <h2>{% trans "No conversations found" %}</h2>
+      <p>{% if query or selected_filter %}{% trans "Try another search or date range." %}{% else %}{% trans "Your saved conversations with PregnaBot will appear here." %}{% endif %}</p>
+      {% if query or selected_filter %}
+      <a href="{% url 'conversation_history' %}">{% trans "Clear filters" %}</a>
+      {% else %}
+      <a class="button button-pink" href="{% url 'chatbot' %}">{% trans "Start a conversation" %}</a>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </section>
+
+  {% if page_obj.paginator.num_pages > 1 %}
+  <nav class="conversation-history-pagination" aria-label="{% trans 'Conversation history pages' %}">
+    {% if page_obj.has_previous %}
+    <a class="conversation-page-control" href="?page={{ page_obj.previous_page_number }}{% if query_suffix %}&amp;{{ query_suffix }}{% endif %}" aria-label="{% trans 'Previous page' %}">
+      <i class="fa-solid fa-chevron-left" aria-hidden="true"></i><span>{% trans "Previous" %}</span>
+    </a>
+    {% endif %}
+    <span class="conversation-page-number" aria-current="page">{{ page_obj.number }}</span>
+    <span class="conversation-page-count">{% trans "of" %} {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+    <a class="conversation-page-control" href="?page={{ page_obj.next_page_number }}{% if query_suffix %}&amp;{{ query_suffix }}{% endif %}" aria-label="{% trans 'Next page' %}">
+      <span>{% trans "Next" %}</span><i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+    </a>
+    {% endif %}
+  </nav>
+  {% endif %}
+
+  <p class="conversation-history-note">
+    <i class="fa-solid fa-shield-heart" aria-hidden="true"></i>
+    {% trans "Registered conversations are saved to your account. Guest chats are temporary and are not saved to account history." %}
+  </p>
+</div>
+{% endblock %}

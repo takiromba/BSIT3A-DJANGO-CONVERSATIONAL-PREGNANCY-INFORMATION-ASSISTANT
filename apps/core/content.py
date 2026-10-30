@@ -1,11 +1,9 @@
-from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 
 from .models import FAQ, PregnancyTopic
 
 
-@login_required(login_url="login")
 def pregnancy_information(request):
     query = request.GET.get("q", "").strip()
     topics = PregnancyTopic.objects.filter(is_published=True)
@@ -46,7 +44,6 @@ def pregnancy_information(request):
     )
 
 
-@login_required(login_url="login")
 def topic_detail(request, slug):
     topic = get_object_or_404(
         PregnancyTopic.objects.filter(is_published=True),
@@ -62,7 +59,6 @@ def topic_detail(request, slug):
     )
 
 
-@login_required(login_url="login")
 def faq_list(request):
     query = request.GET.get("q", "").strip()
     faqs = FAQ.objects.filter(is_published=True).select_related("topic")

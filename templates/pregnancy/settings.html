@@ -1,0 +1,173 @@
+{% extends "pregnancy/base.html" %}
+{% load i18n %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+<div class="settings-page">
+  <section class="settings-hero" aria-labelledby="settings-page-heading">
+    <div class="settings-hero-icon" aria-hidden="true">
+      <i class="fa-solid fa-gear"></i>
+    </div>
+    <div class="settings-hero-copy">
+      <span class="settings-eyebrow">{% trans "Account Settings" %}</span>
+      <h1 id="settings-page-heading">{% trans "Settings" %}</h1>
+      <p>{% trans "Manage your account settings, preferences, and privacy options." %}</p>
+    </div>
+    <div class="settings-hero-art" aria-hidden="true">
+      <span class="art-orbit orbit-one"></span><span class="art-orbit orbit-two"></span>
+      <span class="art-heart heart-one"><i class="fa-solid fa-heart"></i></span>
+      <span class="art-heart heart-two"><i class="fa-solid fa-star"></i></span>
+      <svg viewBox="0 0 270 250">
+        <path class="art-hair" d="M115 30c-38 0-66 27-66 70v50c0 39 27 72 68 72h75c16-23 18-64 12-99-8-51-38-93-89-93Z"/>
+        <path class="art-body" d="M106 78c-16 8-23 27-22 49 1 14-4 26-11 36-14 20-15 38-12 60h157c-2-38-18-67-45-78-13-5-19-13-20-25l-1-20-46-22Z"/>
+        <path class="art-face" d="M105 54c-10 20-13 47-7 68 5 18 19 29 36 29 20 0 38-19 38-43V76c0-22-14-37-35-37-14 0-25 5-32 15Z"/>
+        <path class="art-hair-front" d="M99 91c-9-31 5-61 35-66 22-4 47 10 50 32-14-8-23-21-31-26 2 18-5 29-18 39-9 8-23 15-36 21Z"/>
+        <path class="art-bump" d="M133 144c-25 1-43 20-43 44 0 19 15 34 35 34 22 0 40-15 40-35 0-24-13-43-32-43Z"/>
+        <path class="art-dress" d="M79 158c13-12 24-18 38-20 8 17 21 22 34 22 10 0 18-4 26-11 18 15 31 39 34 74H64c-1-26 3-48 15-65Z"/>
+        <path class="art-sleeve" d="M94 139c-18 7-34 21-42 42-5 13-7 31-4 42h25c-2-24 4-45 22-62 5-5 11-9 18-12l-19-10Z"/>
+        <path class="art-hand" d="M115 182c-4 18 5 37 20 43 9 4 22 1 27-8 4-8-1-17-8-23-11-10-25-15-39-12Z"/>
+        <path class="art-eye" d="M138 105c3 0 5 2 5 5s-2 5-5 5-5-2-5-5 2-5 5-5Z"/>
+        <path class="art-smile" d="M148 124c6 4 12 3 16-2"/>
+      </svg>
+    </div>
+  </section>
+
+  <div class="settings-card-list">
+    <section class="settings-card settings-card-account" aria-labelledby="account-information-heading">
+      <div class="settings-card-heading">
+        <span class="settings-card-icon settings-icon-rose" aria-hidden="true"><i class="fa-regular fa-user"></i></span>
+        <div class="settings-card-copy">
+          <h2 id="account-information-heading">{% trans "Account Information" %}</h2>
+          <p>{% trans "View and update your basic account details." %}</p>
+        </div>
+      </div>
+      <dl class="settings-account-grid">
+        <div><dt>{% trans "Full name" %}</dt><dd>{{ request.user.get_full_name|default:request.user.username }}</dd></div>
+        <div><dt>{% trans "Email address" %}</dt><dd>{{ request.user.email|default:"—" }}</dd></div>
+        <div><dt>{% trans "Username" %}</dt><dd>{{ account_username }}</dd></div>
+        <div><dt>{% trans "Member since" %}</dt><dd>{{ account_date_joined|date:"F j, Y" }}</dd></div>
+      </dl>
+      <details class="settings-disclosure settings-account-disclosure"{% if account_form.errors %} open{% endif %}>
+        <summary class="settings-action">{% trans "Edit" %}</summary>
+        <form method="post" class="profile-form settings-form">
+          {% csrf_token %}
+          <input type="hidden" name="update_account" value="1">
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="{{ account_form.first_name.id_for_label }}">{{ account_form.first_name.label }} <span class="required-flag">{% trans "required" %}</span></label>
+              {{ account_form.first_name }}
+              {% for error in account_form.first_name.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+            </div>
+            <div class="form-field">
+              <label for="{{ account_form.last_name.id_for_label }}">{{ account_form.last_name.label }} <span class="required-flag">{% trans "required" %}</span></label>
+              {{ account_form.last_name }}
+              {% for error in account_form.last_name.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+            </div>
+            <div class="form-field form-grid-full">
+              <label for="{{ account_form.email.id_for_label }}">{{ account_form.email.label }} <span class="required-flag">{% trans "required" %}</span></label>
+              {{ account_form.email }}
+              {% for error in account_form.email.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+            </div>
+          </div>
+          <div class="settings-form-footer">
+            <span>{% trans "Saved changes apply to your PregnaBot account straight away." %}</span>
+            <button class="button button-pink" type="submit">{% trans "Save account details" %}</button>
+          </div>
+        </form>
+      </details>
+    </section>
+
+    <section class="settings-card settings-card-password" aria-labelledby="change-password-heading">
+      <div class="settings-card-heading">
+        <span class="settings-card-icon settings-icon-rose" aria-hidden="true"><i class="fa-solid fa-lock"></i></span>
+        <div class="settings-card-copy">
+          <h2 id="change-password-heading">{% trans "Change Password" %}</h2>
+          <p>{% trans "Keep your account secure with a strong password." %}</p>
+        </div>
+      </div>
+      <details class="settings-disclosure"{% if password_form.errors %} open{% endif %}>
+        <summary class="settings-action settings-action-pink">{% trans "Change Password" %}</summary>
+        <form method="post" class="profile-form settings-form">
+          {% csrf_token %}
+          <input type="hidden" name="change_password" value="1">
+          <div class="form-grid">
+            {% for field in password_form %}
+            <div class="form-field form-grid-full">
+              <label for="{{ field.id_for_label }}">{{ field.label }} <span class="required-flag">{% trans "required" %}</span></label>
+              {{ field }}
+              {% if field.help_text %}<span class="field-help">{{ field.help_text }}</span>{% endif %}
+              {% for error in field.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+            </div>
+            {% endfor %}
+          </div>
+          {% if password_form.non_field_errors %}
+            {% for error in password_form.non_field_errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+          {% endif %}
+          <div class="settings-form-footer">
+            <span>{% trans "You stay signed in on this device after changing your password." %}</span>
+            <button class="button button-pink" type="submit">{% trans "Change password" %}</button>
+          </div>
+        </form>
+      </details>
+    </section>
+
+    <section class="settings-card" aria-labelledby="notifications-heading">
+      <div class="settings-card-heading">
+        <span class="settings-card-icon settings-icon-lavender" aria-hidden="true"><i class="fa-regular fa-bell"></i></span>
+        <div class="settings-card-copy">
+          <h2 id="notifications-heading">{% trans "Notification Preferences" %}</h2>
+          <p>{% trans "How PregnaBot can and cannot send you updates and reminders." %}</p>
+        </div>
+      </div>
+      <ul class="settings-information-list">
+        <li>
+          <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+          <div><strong>{% trans "Email notifications" %}</strong><span>{% trans "Not available in this version. PregnaBot is not configured to send emails." %}</span></div>
+          <span class="settings-status">{% trans "Unavailable" %}</span>
+        </li>
+        <li>
+          <i class="fa-regular fa-message" aria-hidden="true"></i>
+          <div><strong>{% trans "Chat notifications" %}</strong><span>{% trans "Your conversations are available in Conversation History. PregnaBot does not send separate chat alerts." %}</span></div>
+          <span class="settings-status">{% trans "History only" %}</span>
+        </li>
+        <li>
+          <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
+          <div><strong>{% trans "Health reminders" %}</strong><span>{% trans "Appointments you save on My Profile stay inside the app. Tick the in-app reminder box when you add one. No email, push, or SMS reminders are sent." %></span></div>
+          <a class="settings-inline-link" href="{% url 'profile' %}">{% trans "Manage appointments" %} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="settings-card" aria-labelledby="privacy-data-heading">
+      <div class="settings-card-heading">
+        <span class="settings-card-icon settings-icon-mint" aria-hidden="true"><i class="fa-solid fa-shield-heart"></i></span>
+        <div class="settings-card-copy">
+          <h2 id="privacy-data-heading">{% trans "Privacy & Data" %}</h2>
+          <p>{% trans "What PregnaBot stores about you and how it is used." %}</p>
+        </div>
+      </div>
+      <ul class="settings-privacy-list">
+        <li><div><strong>{% trans "Your information" %}</strong><span>{% trans "Your account details, pregnancy profile, appointments, bookmarks, and saved conversations are linked to your account." %}</span></div></li>
+        <li><div><strong>{% trans "Who can see it" %}</strong><span>{% trans "Your pregnancy profile is shown and edited through your signed-in account and is not registered in Django admin. Authorized staff administrators with Django admin access may view saved conversations and their associated messages there." %}</span></div></li>
+        <li><div><strong>{% trans "AI chatbot provider" %}</strong><span>{% trans "The chatbot uses the provider configured by the application. When OpenAI is selected, your question, relevant information retrieved from the pregnancy library, and relevant earlier conversation context for follow-up questions may be sent to OpenAI to generate a response. When Ollama is selected, this information is sent to the configured Ollama endpoint, which may be local or remote. The chatbot does not silently switch providers if the selected provider fails." %}</span></div></li>
+        <li><div><strong>{% trans "Downloading your conversations" %}</strong><span>{% trans "You can download any single conversation as a text file from the chat page. A full account export is not available in this version." %}</span></div><a class="settings-inline-link" href="{% url 'chatbot' %}" aria-label="{% trans 'Open your conversations' %}"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a></li>
+        <li><div><strong>{% trans "Deleting your account" %}</strong><span>{% trans "Self-service account deletion is not available in this version, and nothing is deleted automatically." %}</span></div></li>
+      </ul>
+    </section>
+
+    <section class="settings-card settings-about-card" aria-labelledby="about-heading">
+      <div class="settings-card-heading">
+        <span class="settings-card-icon settings-icon-lavender" aria-hidden="true"><i class="fa-solid fa-circle-info"></i></span>
+        <div class="settings-card-copy">
+          <h2 id="about-heading">{% trans "About PregnaBot" %}</h2>
+          <p>{% trans "About this application." %}</p>
+        </div>
+      </div>
+      <dl class="settings-about-list">
+        <div><dt>{% trans "Application" %}</dt><dd>PregnaBot</dd></div>
+        <div><dt>{% trans "Purpose" %}</dt><dd>{% trans "Pregnancy Information Assistant" %}</dd></div>
+      </dl>
+      <p class="settings-about-note">{% trans "PregnaBot provides general pregnancy information and guidance. It does not replace professional prenatal care, diagnosis, or treatment." %}</p>
+    </section>
+  </div>
+</div>
+{% endblock %}

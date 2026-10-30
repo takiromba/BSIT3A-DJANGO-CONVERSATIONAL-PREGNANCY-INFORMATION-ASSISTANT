@@ -8,12 +8,14 @@ from django.utils.translation import gettext_lazy as _
 
 class PregnancyTopic(models.Model):
     class Category(models.TextChoices):
-        SYMPTOMS = "symptoms", _("Common Symptoms")
-        NUTRITION = "nutrition", _("Nutrition & Healthy Practices")
+        SYMPTOMS = "symptoms", _("Common Pregnancy Symptoms")
+        NUTRITION = "nutrition", _("Nutrition and Healthy Practices")
         PRENATAL = "prenatal", _("Prenatal Care")
-        DEVELOPMENT = "development", _("Stages & Fetal Development")
-        CONCERNS = "concerns", _("Common Concerns")
-        WARNING_SIGNS = "warning-signs", _("Warning Signs")
+        DEVELOPMENT = "development", _("Pregnancy Stages and Fetal Development")
+        CONCERNS = "concerns", _("Common Pregnancy Concerns")
+        WARNING_SIGNS = "warning-signs", _(
+            "Warning Signs and When to Seek Medical Care"
+        )
 
     title = models.CharField(max_length=160)
     slug = models.SlugField(max_length=180, unique=True)
@@ -134,13 +136,32 @@ class PregnancyProfile(models.Model):
         ("unknown", "Prefer not to say / Unknown"),
     ]
 
+    class PregnancyStatus(models.TextChoices):
+        PREGNANT = "pregnant", _("Currently Pregnant")
+        PLANNING = "planning", _("Planning Pregnancy")
+        OTHER = "other", _("Other")
+
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         related_name="pregnancy_profile",
         on_delete=models.CASCADE,
     )
+    date_of_birth = models.DateField(null=True, blank=True)
+    pregnancy_status = models.CharField(
+        max_length=16,
+        choices=PregnancyStatus.choices,
+        blank=True,
+    )
     estimated_conception_date = models.DateField(null=True, blank=True)
     blood_type = models.CharField(max_length=7, choices=BLOOD_TYPE_CHOICES, blank=True)
+    phone_number = models.CharField(max_length=32, blank=True)
+    healthcare_provider = models.CharField(max_length=150, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    province = models.CharField(max_length=100, blank=True)
+    postal_code = models.CharField(max_length=20, blank=True)
+    emergency_contact_name = models.CharField(max_length=150, blank=True)
+    emergency_contact_relationship = models.CharField(max_length=80, blank=True)
+    emergency_contact_number = models.CharField(max_length=32, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def estimated_due_date(self):

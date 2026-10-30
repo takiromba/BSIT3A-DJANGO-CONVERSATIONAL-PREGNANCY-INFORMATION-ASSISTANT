@@ -1,12 +1,19 @@
 from django.urls import path
 
-from . import accounts, chatbot, content, dashboard, prenatal
+from . import accounts, chatbot, content, conversation_history, dashboard, preferences, prenatal
 
 urlpatterns = [
-    path("", accounts.login_view, name="login"),
+    path("", chatbot.public_home, name="public_home"),
+    path("login/", accounts.login_view, name="login"),
     path("home/", dashboard.home, name="dashboard"),
     path("chat/", chatbot.chatbot, name="chatbot"),
+    path("chat/new/", chatbot.new_public_chat, name="chat_new"),
     path("chat/<int:conversation_id>/", chatbot.chatbot, name="chat_conversation"),
+    path(
+        "conversations/",
+        conversation_history.conversation_history,
+        name="conversation_history",
+    ),
     path(
         "chat/<int:conversation_id>/rename/",
         chatbot.rename_conversation,
@@ -34,7 +41,8 @@ urlpatterns = [
     path("pregnancy-info/<slug:slug>/", content.topic_detail, name="topic_detail"),
     path("faqs/", content.faq_list, name="faq_list"),
     path("profile/", accounts.profile, name="profile"),
-    path("pregnancy-profile/", prenatal.pregnancy_profile, name="pregnancy_profile"),
+    path("pregnancy-profile/", accounts.profile, name="pregnancy_profile"),
+    path("settings/", preferences.settings_view, name="settings"),
     path(
         "pregnancy-profile/appointments/<int:appointment_id>/delete/",
         prenatal.delete_appointment,

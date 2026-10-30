@@ -1,6 +1,6 @@
 # PregnaBot
 
-PregnaBot is a Django application for general pregnancy education. It includes a pregnancy information and FAQ library, a ranked keyword-search chatbot, private chat histories, a pregnancy planning toolkit, and superuser account management.
+PregnaBot is a Django application for general pregnancy education. It includes a pregnancy information and FAQ library, a knowledge-grounded conversational chatbot, private chat histories, a pregnancy planning toolkit, and superuser account management.
 
 PregnaBot is not a diagnostic or treatment service. Urgent-symptom replies advise users to contact their maternity-care team or local emergency services; the app does not publish location-specific hotline numbers.
 
@@ -31,6 +31,27 @@ Set-Content -Path .env -Value $envText
 
 The default local database is `db.sqlite3`. To use MySQL or MariaDB, uncomment and set `DB_ENGINE`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, and `DB_PORT` in `.env`.
 
+### Optional AI chatbot provider
+
+PregnaBot uses the provider selected by `AI_PROVIDER` (default: `openai`). When a relevant published answer is found, the chatbot sends the question and retrieved answer to the selected provider for response generation. For follow-up questions, relevant earlier questions and answers may also be included.
+
+When `AI_PROVIDER=openai`, that information is sent to OpenAI. Configure an API key in the ignored local `.env` file in a text editor; do not paste credentials into chat, source code, or a command that will be saved in shell history.
+
+To use Ollama instead, install it, download the model with `ollama pull llama3.2`, and configure the ignored local `.env` file:
+
+```text
+AI_PROVIDER=ollama
+OLLAMA_BASE_URL=http://127.0.0.1:11434
+OLLAMA_MODEL=llama3.2:latest
+OLLAMA_TIMEOUT_SECONDS=60
+```
+
+Ollama requests are sent to the configured base URL using its `/api/chat` endpoint. That endpoint may be local or remote depending on your configuration. If provider generation fails, PregnaBot displays an in-app warning and does not silently switch providers. It shows the retrieved published answer for a first response; for a follow-up, it may ask you to clarify instead.
+
+OpenAI configuration uses `AI_PROVIDER=openai`, `OPENAI_API_KEY`, `OPENAI_MODEL`, and `OPENAI_TIMEOUT_SECONDS`. OpenAI usage may be subject to provider pricing and privacy terms; review those requirements before using it.
+
+Automated tests use `mysite.test_settings` and mock all provider HTTP/client calls. They do not require Ollama to run and do not make live requests. A successful test run does not verify a live Django-to-Ollama request; perform that separately only when explicitly authorized.
+
 Initialize and run the app:
 
 ```powershell
@@ -56,7 +77,7 @@ The CI workflow runs the tests against MySQL 8.0. Production database backends m
 
 ## Configuration and production
 
-- `mysite.settings` is the local/development configuration. `DJANGO_SECRET_KEY`, `DEBUG`, `ALLOWED_HOSTS`, and DB connection values are read from `.env` or environment variables.
+- `mysite.settings` is the local/development configuration. `DJANGO_SECRET_KEY`, `DEBUG`, `ALLOWED_HOSTS`, database connection values, and optional AI provider settings are read from `.env` or environment variables.
 - `mysite.production_settings` requires a non-SQLite database, uses the database cache for cross-process login throttling, forces secure cookies and HTTPS by default, enables HSTS, and uses WhiteNoise for collected static assets.
 - Generate a new secret for each environment. Never commit `.env`, actual credentials, production database files, or backup data. `DJANGO_SECRET_KEY` is mandatory.
 - If TLS terminates at a reverse proxy, only set `TRUST_X_FORWARDED_PROTO=True` when the application can trust that proxy to set the forwarded protocol header. Keep `SECURE_SSL_REDIRECT=True` in production.

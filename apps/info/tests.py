@@ -1,7 +1,11 @@
+from datetime import timedelta
+
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
 
+from apps.core.models import PregnancyProfile
 from apps.info.models import Info
 
 
@@ -9,6 +13,10 @@ class InfoViewTests(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(
             username="tester", password="secret123"
+        )
+        PregnancyProfile.objects.create(
+            user=self.user,
+            estimated_conception_date=timezone.localdate() - timedelta(days=70),
         )
         self.client.force_login(self.user)
         self.record = Info.objects.create(

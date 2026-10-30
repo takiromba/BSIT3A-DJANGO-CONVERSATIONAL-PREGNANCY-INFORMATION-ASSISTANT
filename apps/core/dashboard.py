@@ -30,6 +30,12 @@ def home(request):
         .order_by("-updated_at")
         .first()
     )
+    category_count = (
+        PregnancyTopic.objects.filter(is_published=True)
+        .values_list("category", flat=True)
+        .distinct()
+        .count()
+    )
     return render(
         request,
         "pregnancy/dashboard.html",
@@ -42,6 +48,7 @@ def home(request):
             "last_activity": last_activity,
             "recent_conversations": recent_conversations,
             "topic_count": PregnancyTopic.objects.filter(is_published=True).count(),
+            "category_count": category_count,
             "categories": [
                 {**category, "topic": topics_by_category.get(category["value"])}
                 for category in PregnancyTopic.category_metadata()

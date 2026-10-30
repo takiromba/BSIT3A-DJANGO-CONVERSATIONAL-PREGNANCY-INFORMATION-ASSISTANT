@@ -1,46 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils import timezone
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
 
-from .forms import PregnancyProfileForm, PrenatalAppointmentForm
-from .models import PregnancyProfile, PregnancyTopic, PrenatalAppointment, TopicBookmark
-
-
-@login_required(login_url="login")
-def pregnancy_profile(request):
-    profile, _created = PregnancyProfile.objects.get_or_create(user=request.user)
-    form = PregnancyProfileForm(
-        request.POST or None,
-        instance=profile,
-    )
-    appointment_form = PrenatalAppointmentForm()
-    if request.method == "POST" and "save_profile" in request.POST and form.is_valid():
-        form.save()
-        messages.success(request, "Your pregnancy profile has been updated.")
-        return redirect("pregnancy_profile")
-    if request.method == "POST" and "add_appointment" in request.POST:
-        appointment_form = PrenatalAppointmentForm(request.POST)
-        if appointment_form.is_valid():
-            appointment = appointment_form.save(commit=False)
-            appointment.profile = profile
-            appointment.save()
-            messages.success(request, "Your appointment was saved.")
-            return redirect("pregnancy_profile")
-    return render(
-        request,
-        "pregnancy/prenatal_profile.html",
-        {
-            "profile": profile,
-            "form": form,
-            "appointment_form": appointment_form,
-            "appointments": profile.appointments.filter(
-                scheduled_at__gte=timezone.now(),
-            )[:20],
-        },
-    )
+from .models import PregnancyTopic, PrenatalAppointment, TopicBookmark
 
 
 @login_required(login_url="login")
@@ -52,7 +16,7 @@ def delete_appointment(request, appointment_id):
     )
     appointment.delete()
     messages.success(request, "Appointment removed.")
-    return redirect("pregnancy_profile")
+    return redirect("profile")
 
 
 @login_required(login_url="login")
